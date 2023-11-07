@@ -1,0 +1,237 @@
+.banArt{
+    width: 58%;
+}
+
+.banArt img{
+    padding: 10px;
+    width: 100%;
+    border-radius: 20px;
+}
+
+.textArt{
+    width: 42%;
+    padding: 20px;
+    margin-top: 30px;
+}
+
+
+.article{
+    margin: 80px 2% 2%;
+
+    width: 96%;
+    border: 2px solid #bacfcf;
+    border-radius: 20px;
+    position: relative;
+   
+
+}
+
+.articleContains{
+    display: flex;
+}
+
+.statusArt{
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    border-radius: 20px 20px 0 0;
+    background-color: #69a1a3;
+}
+
+.AuthorArt{
+    color: white;
+    font-size: 20px;
+    margin: 0;
+}
+
+.dateArt{
+    color: white;
+    font-size: 10px;
+    margin: 0;
+}
+
+.return{
+
+    font-weight: 900;
+    padding: 5px 10px;
+    text-decoration: none;
+    color: #69a1a3;
+    background-color: #e4f1f1;
+    border-radius: 50%;
+    position: absolute;
+    right: 15px;
+    top: 20px;
+
+}
+
+.social{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px ;
+}
+
+
+@media screen and (max-width:992px) {
+
+
+    .articleContains{
+        
+        display: block;
+
+    }
+
+    .textArt{
+        width: 100%;
+        margin-top: 0px;
+    }
+
+    .banArt{
+        width: 100%;
+      
+        margin-right: 0;
+    }
+
+
+}
+
+
+.commentaires{
+    margin:1% 2%;
+    width: 96%;
+
+}
+
+.comContent{
+    display: flex;
+    width: 100%;
+
+}
+
+
+.idcom{
+    width: 100%;
+    padding: 0px 15px 5px 5px;
+    color: rgb(91, 119, 117);
+    font-weight: 500;
+    justify-content: space-between;
+
+  
+}
+
+.cadreCom, .inputCom{
+    border: 2px solid #ccd1d1;
+    border-radius: 20px;
+    background-color: #f5f5f5;
+    padding: 10px;
+}
+
+.inputCom{
+    display: flex;
+}
+
+.idcom p {
+    margin: 0;
+}
+
+.dateComment{
+    font-weight: 300;
+    font-size: 12px;
+    padding: 4px 0 0 10px;
+}
+
+.textComment{
+    font-weight: 400;
+}
+
+.formCom{
+    padding: 15px;
+    width: 100%;
+}
+
+.pseudo {
+    border: none;
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    
+}
+
+.commentaire{
+    border: none;
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.btnSend{
+    margin: 10px 5px;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 15px;
+    background-color: #69a1a3;
+    border: #69a1a3 1px solid;
+}
+
+.unconnectCom{
+    text-align: center;
+    margin: 0;
+    width: 100%;
+    color: #69a1a3;
+    font-weight: 500;
+    
+}
+
+.userPhotoCom{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.userProfil {
+    display: flex;
+
+    justify-content: space-between;
+}
+
+.userComment{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+hr{
+    border: solid 1px black;
+    margin: 10px 15px;
+}
+
+.zoneCom{
+    display: flex;
+    justify-content: space-between;
+}
+
+.supprCom{
+    background-color: rgba(255, 255, 255, 0);
+    border: 0;
+    color: rgb(23, 131, 134);
+    font-weight: 400;
+    font-size: 15px;
+}
+
+.supprCom:hover{
+    color: rgb(141, 179, 180);
+}
+
+.btnCom{
+ 
+    text-decoration: none;
+   padding: 5px 10px;
+    background-color: #69a1a3;
+    color: white;
+    border-radius: 10px;
+}
+
+.optionCom{
+    display: flex;
+}

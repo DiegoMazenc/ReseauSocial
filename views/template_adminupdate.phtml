@@ -1,0 +1,21 @@
+<h1 style="margin-top:80px; text-align:center">Update Picture</h1>
+
+
+<form style="margin:5%" method="POST">
+    <div class="mb-3">
+        <label for="src" class="form-label">Source</label>
+        <input type="text" class="form-control" id="src" name="src" value="<?= $picture['src'] ;?>">
+    </div>
+    <div class="mb-3">
+        <label for="title" class="form-label">Titre</label>
+        <input type="text" class="form-control" id="title" name="title" value="<?= $picture['title'] ;?>">
+    </div>
+    <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea type="text" class="form-control" id="description" name="description"><?= $picture['description'] ;?></textarea>
+    </div>
+
+    <input type="submit" class="form-control" id="submit" name="submit" value="Update Picture">
+
+</form>
+

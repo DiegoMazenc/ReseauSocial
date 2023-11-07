@@ -1,0 +1,56 @@
+<h1>admin</h1>
+<div class="menuAdmin">
+  <a data-bs-toggle="collapse" href="#collapseCommentaires">Tableau de bord</a>
+  <a data-bs-toggle="collapse" href="#paramCompte">Paramètres compte</a>
+  <a data-bs-toggle="collapse" href="#paramCompte">Admin Articles</a>
+  <a data-bs-toggle="collapse" href="#collapseCommentaires">Admin comptes</a>
+</div>
+
+<hr>
+<div class="adminArticles">
+<a href="?page=adminadd" class="btn btn-primary m-1">Add Picture</a>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col" style="width:12%">Source</th>
+      <th scope="col">Titre</th>
+      <th scope="col">Description</th>
+      <?php if ((int)$_SESSION['admin'] === 1) { ?>
+        <th scope="col">Auteur</th>
+      <?php } ?>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <?php foreach ($pictures as $picture) : ?>
+      <tr>
+        <th scope="row"><?= $picture['picture_id'] ?></th>
+        <td><img src="<?= $picture['src'] ?>" alt="<?= $picture['title'] ?>" style="width : 100%;"></td>
+        <td><?= $picture['title'] ?></td>
+        <td><?= $picture['description'] ?></td>
+        <?php if ((int)$_SESSION['admin'] === 1) { ?>
+          <td><?= $picture['user_pseudo'] ?></td>
+        <?php } ?>
+        <td>
+          <a href="index.php?page=adminupdate&id=<?= $picture['id']; ?>" class="btn btn-warning m-1">Update</a>
+          <a href="#" class="btn btn-danger m-1" onclick="deleted(<?= $picture['id'] ?>)">delete</a>
+        </td>
+      </tr>
+
+    <?php endforeach; ?>
+  </tbody>
+
+</table>
+<a href="?page=adminadd" class="btn btn-primary m-1">Add Picture</a>
+</div>
+
+<script>
+  function deleted(id) {
+    if (confirm("Êtes-vous sûr de vouloir supprimer cet article ?")) {
+
+      window.location.href = `index.php?page=admindelete&id=${id}`;
+    }
+  };
+</script>

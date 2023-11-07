@@ -1,0 +1,94 @@
+<div class="article">
+    <div class="statusArt">
+        <div class="authorDet">
+            <p class="AuthorArt">Auteur : <?= $pictures['user_pseudo'] ?></p>
+            <p class="dateArt"><?= $pictures['created_at'] ?></p>
+        </div>
+        <a href="?page=gallery" class="return">X</a>
+    </div>
+    <div class="articleContains">
+        <div class="banArt">
+            <img src="<?= $pictures['src'] ?>" alt="<?= $pictures['title'] ?>">
+        </div>
+        <div class="textArt">
+            <h5><?= $pictures['title'] ?></h5>
+            <p><?= $pictures['description'] ?></p>
+        </div>
+    </div>
+    <hr>
+    <div class="social">
+
+        <?php if ($unlike == false) { ?>
+
+
+            <form method="POST">
+                <input type="hidden" name="id_picture" value="<?= $id; ?>">
+                <input type="hidden" name="id_user" value="<?= $_SESSION['id']; ?>">
+                <input type="submit" name="like" value="like <?= $nbrLike; ?>">
+            </form>
+
+
+        <?php } else { ?>
+
+
+            <form method="POST">
+                <input type="hidden" name="id_picture" value="<?= $id; ?>">
+                <input type="hidden" name="id_user" value="<?= $_SESSION['id']; ?>">
+                <input type="submit" name="unlike" value="like <?= $nbrLike; ?>" style="background-color: rgb(129, 212, 226);">
+            </form>
+
+
+        <?php }; ?>
+
+
+        <a class="btnCom" data-bs-toggle="collapse" href="#collapseCommentaires">Commentaires (<?= $nbrCom; ?>)</a>
+    </div>
+    <div class="comToggle collapse" id="collapseCommentaires">
+
+
+
+
+        <form method="POST" class="formCom" id="form_comment">
+
+            <div class="inputCom">
+                <?php if (isset($_SESSION['pseudo'])) { ?>
+                    <!-- <p><?= $_SESSION['pseudo']; ?></p> -->
+                    <img src="<?= $_SESSION['photo']; ?>" alt="" class="userPhotoCom">
+                    <textarea name="com" class="commentaire" placeholder="Commentez"></textarea>
+                    <input type="submit" name="valider" value="OK" class="btnSend" />
+                <?php } else { ?>
+                    <p class="unconnectCom">Connectez-vous pour commenter </p>
+                <?php }; ?>
+            </div>
+
+        </form>
+
+
+
+
+
+        <?php foreach ($comments as $comment) : ?>
+            <div class="commentaires">
+                <div class="comContent">
+                    <img src="<?= $comment['photo_src']; ?>" alt="" class="userPhotoCom">
+                    <div class="idcom">
+                        <div class="cadreCom">
+                            <p class="userComment"><?= $comment['user_pseudo']; ?></p>
+                            <p class="textComment"><?= $comment['com']; ?></p>
+                        </div>
+                        <div class="optionCom">
+                            <p class="dateComment"><?= $comment['date_com']; ?></p>
+                            <?php if (isset($_SESSION['id']) && (int)$_SESSION['id'] === (int)$comment['id_user']) { ?>
+                                <form method="POST" id="form_delete">
+                                    <input type="hidden" name="comment_id" value="<?= $comment['comment_id'];; ?>">
+                                    <input type="submit" name="supprimer" value="Supprimer" class="supprCom">
+                                </form>
+                            <?php }; ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <?php endforeach;
+        ?>
+    </div>
+</div>

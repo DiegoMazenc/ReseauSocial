@@ -1,0 +1,30 @@
+.formlog{
+    display: flex;
+    width: 100%;
+    text-align: center;
+}
+
+.connexion{
+    width: 49%;
+    align-items: center;
+}
+
+.inscription{
+    width: 49%;
+}
+
+.formlog hr{
+    border: 1px solid black;
+}
+
+.btn-inscription{
+    background-color: rgb(190, 233, 125);
+    color: white;
+    font-weight: 700;
+}
+
+.btn-connexion{
+    background-color: rgb(129, 212, 226);
+    color: white;
+    font-weight: 700;
+}

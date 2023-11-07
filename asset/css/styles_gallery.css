@@ -1,0 +1,82 @@
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 30px;
+}
+
+.photo {
+    position: relative;
+    margin: 10px;
+    padding: 10px;
+    border: 3px solid rgb(190, 214, 214);
+    border-radius: 15px;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+    width: 370px;
+    padding-bottom: 50px;
+}
+
+.titrePhoto {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #317a68;
+}
+
+.descritpionPhoto{
+    padding: 5px;
+    color: #38574f;
+}
+
+.imgArticle {
+    width: 100%;
+    height: 220px;
+    border-radius: 15px;
+}
+
+.lienPhotos{
+    position: absolute;
+    transform: translate(-50%,-50%);
+    left: 50% ;
+    bottom: 0;
+    text-decoration: none;
+    padding: 5px 15px;
+    background-color: #69a1a3;
+    color: white;
+    border-radius: 15px;
+
+}
+
+.datePhotos{
+    font-size: 12px;
+    margin: 0 0 5px 0;
+    color: rgb(131, 131, 131);
+}
+
+.userName{
+    display: flex;
+    align-items: center;
+}
+
+.userName p{
+    margin: 0;
+}
+
+.userName img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    margin-left: 0px;
+}
+
+.userInfo{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+hr{
+    margin: 5px 0 10px;
+}

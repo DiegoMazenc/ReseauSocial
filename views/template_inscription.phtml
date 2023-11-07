@@ -1,0 +1,35 @@
+<h1>CONTACT</h1>
+<h1>Inscription</h1>
+
+<form style="margin:5% 25%" method="POST">
+    <div class="mb-3">
+        <label for="firstname" class="form-label">Prénom:</label>
+        <input type="text" class="form-control" id="firstname" name="firstname" required>
+    </div>
+    <div class="mb-3">
+        <label for="name" class="form-label">Nom:</label>
+        <input type="text" class="form-control" id="name" name="name" required>
+    </div>
+    <div class="mb-3">
+        <label for="pseudo" class="form-label">Pseudo:</label>
+        <input type="text" class="form-control" id="pseudo" name="pseudo" required>
+    </div>
+    <div class="mb-3">
+        <label for="gender" class="form-label">Genre:</label>
+        <select class="form-control" id="gender" name="gender" required>
+            <option value="homme">Homme</option>
+            <option value="femme">Femme</option>
+            <option value="autres">Autres</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="mail" class="form-label">E-mail:</label>
+        <input type="email" class="form-control" id="mail" name="mail" required>
+    </div>
+    <div class="mb-3">
+        <label for="password" class="form-label">Mot de passe:</label>
+        <input type="password" class="form-control" id="password" name="password" required>
+    </div>
+
+    <input type="submit" name="submit" class="form-control" value="S'inscrire">
+</form>
