@@ -58,3 +58,53 @@ commentaire
             </div>
         <?php endforeach;
         ?>
+
+
+carroussel
+
+<div id="carouselExampleCaptions" class="carousel slide">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+  </div>
+
+  <div class="carousel-inner ">
+    <?php foreach ($pictures as $key => $picture) : ?>
+
+      <div class="carousel-item <?php if ($key === array_key_first($pictures)) echo 'active'; ?> styleCarousel">
+        <img class="d-block w-100" src="<?= $picture['src'] ?>" alt="<?= $picture['title'] ?>">
+        <div class="carousel-caption d-none d-md-block">
+          <h5><?= $picture['title'] ?></h5>
+          <p><?= $picture['description'] ?></p>
+        </div>
+      </div>
+
+    <?php endforeach; ?>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+
+
+  <!-- visuel Like -->
+
+  let like = document.querySelector('.likebtn');
+
+like.addEventListener('click', () => {
+  if(<?php Likes::cntUnlikes($picture['id']) == false ?>){
+    like.classList.remove('like');
+    like.classList.add('unlike');
+    like.name = "unlike";
+} else{
+  like.classList.remove('unlike');
+    like.classList.add('like');
+    like.name = "like";
+}
+
+})

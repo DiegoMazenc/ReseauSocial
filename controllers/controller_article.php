@@ -2,93 +2,60 @@
 
 $db = connectDB();
 $id = $_GET['id'];
-$sql = $db->prepare("SELECT *, 
-users.pseudo AS user_pseudo 
-FROM picture 
-INNER JOIN users ON users.id = picture.id_user 
-WHERE picture.id = $id");
+require_once("./models/Picture.php");
+require_once("./models/Comment.php");
+require_once("./models/Likes.php");
 
-$sql->execute();
-$pictures = $sql->fetch(PDO::FETCH_ASSOC);
+//Génère la photo
+$pictures = Picture::getAllArticle();
 
 
+//=====COMMENTAIRES=====\\
 
+//Appel des commentaires
+$comments = Comment::getAllComment($id)[0];
 
+//Compteur commentaires
+$nbrCom = Comment::getAllComment($id)[1];
+
+//Insérer un commentaire
 if (isset($_POST['valider'])) {
     $id_user = $_SESSION['id'];
     $com = $_POST['com'];
-
-
-    $sql = $db->prepare('INSERT 
-    INTO comment (id_picture,id_user,com) 
-    VALUES(?,?,?)');
-
-    $sql->execute(array($id, $id_user, $com));
+    Comment::insertComment($id, $id_user, $com);
 }
 
-
-
-
-
+//Supprimer un commentaire
 if (isset($_POST['supprimer'])) {
     $comment_id = $_POST['comment_id'];
-
-    $sql = $db->prepare("DELETE FROM comment WHERE id = ?");
-    $sql->execute([$comment_id]);
+    Comment::deleteComment($comment_id);
 }
 
 
-$sql = $db->prepare(
-    "SELECT *,
-        comment.id AS comment_id, 
-        users.pseudo AS user_pseudo, 
-        users.id AS users_id,
-        photo.src AS photo_src
-    FROM comment 
-    INNER JOIN users ON users.id = comment.id_user 
-    INNER JOIN photo ON photo.id = users.id_photo
-    WHERE id_picture = $id 
-    ORDER BY comment.id DESC"
-    );
+//=====LIKES=====\\
 
-$sql->execute();
-$nbrCom = $sql->rowCount();
+//compteur Like
+$nbrLike = Likes::cntLikes($id);
 
-$comments = $sql->fetchAll(PDO::FETCH_ASSOC);
+//compteur Unlike
+$unlike = Likes::cntUnlikes($id);
 
 
-
-$sql = $db->prepare("SELECT * FROM likes WHERE id_picture = $id ");
-$sql->execute();
-$nbrLike = $sql->rowCount();
-
-$sql = $db->prepare('SELECT * FROM likes WHERE id_user = ? AND id_picture = ?');
-$sql->execute(array($_SESSION['id'], $id));
-$unlike = $sql->fetch(PDO::FETCH_ASSOC);
-
-
-
+//Insert Like
 if (isset($_POST['like'])) {
     $id_user = $_POST['id_user'];
     $id_picture = $_POST['id_picture'];
-
-    $db = connectDB();
-    $sql = $db->prepare( "INSERT INTO likes (id_picture,id_user)  VALUES(?,?)" );
-
-    $sql->execute(array($id_picture, $id_user));
+    Likes::insertLike($id_picture, $id_user);
     header("Location: index.php?page=article&id=$id");
     exit;
 
 }
 
+//Delete Like
 if (isset($_POST['unlike'])) {
     $id_user = $_POST['id_user'];
     $id_picture = $_POST['id_picture'];
-
-    $db = connectDB();
-    $sql = $db->prepare( "DELETE FROM likes WHERE id_picture=? AND id_user=?");
-
-    $sql->execute([$id_picture, $id_user]);
+    Likes::deleteLike($id_picture, $id_user);
     header("Location: index.php?page=article&id=$id");
     exit;
 

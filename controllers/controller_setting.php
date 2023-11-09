@@ -1,9 +1,7 @@
 <?php
+require_once("./models/Users.php");
 $id = $_SESSION['id'];
-$db = connectDB();
-$sql = $db->prepare("SELECT * FROM users WHERE id = $id ");
-$sql->execute();
-$user = $sql->fetch(PDO::FETCH_ASSOC);
+$user = Users::getUser($id);
 
 if (isset($_POST['updateInfos'])) {
     $new_firstname = strip_tags($_POST['firstname']);
@@ -14,10 +12,7 @@ if (isset($_POST['updateInfos'])) {
     $new_password = password_hash(strip_tags($_POST['password']), PASSWORD_BCRYPT);
 
     try {
-        $sql = $db->prepare("UPDATE users SET firstname=?, name=?, pseudo=?, gender=?, mail=?, password=? WHERE id = ?");
-
-        $sql->execute(array($new_firstname, $new_name, $new_pseudo, $new_gender, $new_mail, $new_password, $id));
-
+        Users::updateUser($new_firstname, $new_name, $new_pseudo, $new_gender, $new_mail, $new_password, $id);
         
     } catch (Exception $e) {
         $sqlError = $e->getMessage();

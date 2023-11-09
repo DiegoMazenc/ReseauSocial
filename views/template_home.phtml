@@ -1,32 +1,123 @@
+<div class="gallery">
+  <div class="addArticle">
+    <a class="form-control" data-bs-toggle="collapse" href="#collapseAddPicture"> Add Article</a>
 
-<div id="carouselExampleCaptions" class="carousel slide">
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-  </div>
-    
-    <div class="carousel-inner ">
-        <?php foreach ($pictures as $key => $picture) : ?>
+    <div class="collapse" id="collapseAddPicture">
+      <form style="margin:5%" method="POST" enctype="multipart/form-data">
 
-            <div class="carousel-item <?php if($key === array_key_first($pictures)) echo 'active'; ?> styleCarousel" >
-                <img class="d-block w-100" src="<?= $picture['src'] ?>" alt="<?= $picture['title'] ?>" >
-                <div class="carousel-caption d-none d-md-block">
-                    <h5><?= $picture['title'] ?></h5>
-                    <p><?= $picture['description'] ?></p>
-                </div>
-            </div>
+        <div class="mb-3">
+          <label for="src" class="form-label">Charger une image</label>
+          <?php if (!empty($error)) { echo "<p style=\"color : red;\">".$error."</p>";} ?>
+          
+            <input type="file" class="form-control" name="image_file" accept="image/*" required>
 
-        <?php endforeach; ?>
+        </div>
+
+        <div class="mb-3">
+          <label for="title" class="form-label">Titre</label>
+          <input type="text" class="form-control" id="title" name="title" placeholder="Titre"required>
+        </div>
+
+        <div class="mb-3">
+          <label for="description" class="form-label">Description</label>
+          <textarea type="text" class="form-control" id="description" name="description" placeholder="Description"></textarea>
+        </div>
+
+        <input type="submit" class="form-control" id="submit" name="submit" value="Add Picture">
+
+      </form>
     </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
+
+  </div>
+
+  <?php foreach ($pictures as $picture) : ?>
+
+    <div class="photo">
+      <div class="userInfo">
+        <div class="userName">
+          <img src="<?= $picture['photo_src']; ?>" alt="" class="imgUser">
+          <p><?= $picture['user_pseudo']; ?></p>
+        </div>
+        <p class="datePhotos"><?= date_format(date_create($picture['created_at']), "d M Y")  ?></p>
+      </div>
+      <hr>
+      <a href="?page=article&id=<?= $picture['id'] ?>">
+        <img src="<?= $picture['src'] ?>" alt="<?= $picture['title'] ?>" class="imgArticle">
+      </a>
+      <p class="titrePhoto"><?= $picture['title'] ?></p>
+      <p class="descritpionPhoto"><?= $picture['description'] ?></p>
+
+
+      <div class="social">
+      <?php if (isset($_SESSION['pseudo'])) { ?>
+        <?php if (Likes::cntUnlikes($picture['id']) == false) { ?>
+          <form method="POST">
+            <input type="hidden" name="id_picture" value="<?= $picture['id']; ?>">
+            <input type="hidden" name="id_user" value="<?= $_SESSION['id']; ?>">
+            <input type="submit" class="like" name="like" value="Like <?= $picture['nbrLikes']; ?>">
+          </form>
+        <?php } else { ?>
+          <form method="POST">
+            <input type="hidden" name="id_picture" value="<?= $picture['id']; ?>">
+            <input type="hidden" name="id_user" value="<?= $_SESSION['id']; ?>">
+            <input type="submit" class="unlike" name="unlike" value="Like <?= $picture['nbrLikes']; ?>">
+          </form>
+      <?php }} else {  ?>
+        <input type="submit" class="like" name="like" value="Like <?= $picture['nbrLikes']; ?>">
+        <?php };  ?>
+
+        <?php if ((int)$picture['nbrCom'] > 1) { ?>
+          <a class="btnCom" data-bs-toggle="collapse" href="#collapseCommentaires<?= $picture['id'] ?>"><?= $picture['nbrCom'] ?> commentaires </a>
+        <?php } else { ?>
+          <a class="btnCom" data-bs-toggle="collapse" href="#collapseCommentaires<?= $picture['id'] ?>"><?= $picture['nbrCom'] ?> commentaire </a>
+        <?php } ?>
+      </div>
+
+      <div class="commentaireArticle collapse" id="collapseCommentaires<?= $picture['id'] ?>">
+        <form method="POST" class="formCom" id="form_comment">
+
+          <div class="inputCom">
+            <?php if (isset($_SESSION['pseudo'])) { ?>
+
+              <img src="<?= $_SESSION['photo']; ?>" alt="" class="userPhotoCom">
+              <textarea name="com" class="commentaire" placeholder="Commentez"></textarea>
+              <input type="hidden" name="id_post" value="<?= $picture['id']; ?>">
+              <input type="submit" name="valider" value="OK" class="btnSend" />
+            <?php } else { ?>
+              <p class="unconnectCom">Connectez-vous pour commenter </p>
+            <?php }; ?>
+          </div>
+
+        </form>
+        <?php $comments = comment::getAllComment($picture['id'])[0]; ?>
+        <?php foreach ($comments as $comment) : ?>
+          <div class="commentaires">
+            <div class="comContent">
+              <img src="<?= $comment['photo_src']; ?>" alt="" class="userPhotoCom">
+              <div class="idcom">
+                <div class="cadreCom">
+                  <p class="userComment"><?= $comment['user_pseudo']; ?></p>
+                  <p class="textComment"><?= $comment['com']; ?></p>
+                </div>
+                <div class="optionCom">
+                  <p class="dateComment"><?= $comment['date_com']; ?></p>
+                  <?php if (isset($_SESSION['id']) && (int)$_SESSION['id'] === (int)$comment['id_user']) { ?>
+                    <form method="POST" id="form_delete">
+                      <input type="hidden" name="comment_id" value="<?= $comment['comment_id'];; ?>">
+                      <input type="submit" name="supprimer" value="Supprimer" class="supprCom">
+                    </form>
+                  <?php }; ?>
+                </div>
+              </div>
+            </div>
+          </div>
+        <?php endforeach; ?>
+      </div>
+
+    </div>
+  <?php endforeach; ?>
 </div>
 
+<script>
 
+</script>

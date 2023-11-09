@@ -1,9 +1,15 @@
 <?php
+require_once("./models/Users.php");
+
 if(isset($_POST['submit'])){
-    $db = connectDB();
-    $hash = password_hash(strip_tags($_POST['password']), PASSWORD_BCRYPT);
-    $sql = $db->prepare('INSERT INTO users (firstname,name,pseudo,gender,mail,password) VALUES(?,?,?,?,?,?)'); 
-    $sql->execute([$_POST['firstname'],$_POST['name'],$_POST['pseudo'],$_POST['gender'],$_POST['mail'],$hash]);
+    $firstname = $_POST['firstname'];
+    $name = $_POST['name'];
+    $pseudo = $_POST['pseudo'];
+    $gender = $_POST['gender'];
+    $mail = $_POST['mail'];
+    $password = $_POST['password'];
+    
+    Users::inscription($password, $firstname, $name, $pseudo, $gender, $mail, $hash);
 
     header("Location: index.php?page=home");
     exit;

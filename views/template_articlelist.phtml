@@ -1,0 +1,53 @@
+<h1>admin</h1>
+<div class="menuParam">
+  <a href="index.php?page=articlelist">Tableau de bord</a>
+  <a href="index.php?page=setting">Paramètres compte</a>
+  <?php if ((int)$_SESSION['admin'] === 1) { ?>
+    <a href="index.php?page=adminlist">Admin</a>
+  <?php } ?>
+</div>
+
+<hr>
+<div class="adminArticles">
+  <a href="?page=articleadd" class="btn btn-primary m-1">Add Picture</a>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col" style="width:12%">Source</th>
+        <th scope="col">Titre</th>
+        <th scope="col">Description</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <?php 
+      foreach ($pictures as $picture) : 
+       ?>
+        <tr>
+          <th scope="row"><?= $picture['picture_id'] ?></th>
+          <td><img src="<?= $picture['src'] ?>" alt="<?= $picture['title'] ?>" style="width : 100%;"></td>
+          <td><?= $picture['title'] ?></td>
+          <td><?= $picture['description'] ?></td>
+          <td>
+            <a href="index.php?page=articleupdate&id=<?= $picture['picture_id']; ?>" class="btn btn-warning m-1">Update</a>
+            <a href="#" class="btn btn-danger m-1" onclick="deleted(<?= $picture['picture_id'] ?>)">delete</a>
+          </td>
+        </tr>
+
+      <?php endforeach ?>
+    </tbody>
+
+  </table>
+  <a href="?page=articleadd" class="btn btn-primary m-1">Add Picture</a>
+</div>
+
+<script>
+  function deleted(id) {
+    if (confirm("Êtes-vous sûr de vouloir supprimer cet article ?")) {
+
+      window.location.href = `index.php?page=articledelete&id=${id}`;
+    }
+  };
+</script>

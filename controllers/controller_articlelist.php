@@ -1,7 +1,9 @@
 <?php
 require_once("./models/Picture.php");
 
-$pictures = Picture::getListAdmin();
+    $id = $_SESSION['id'];
+    $pictures = Picture::getListPublic($id);
+
 
 include "./views/layout.phtml";
 

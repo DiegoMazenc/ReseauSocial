@@ -14,14 +14,17 @@
             </div>
             <input type="submit" name="submit" class="form-control btn-connexion" value="Se connecter">
         </form>
+        
 
-        <?= $alertConnect ?>
+        <?= $alertConnect;
+        var_dump($_POST); ?>
     </div>
     <hr>
     <div class="inscription">
         <h1>Inscription</h1>
 
         <form style="margin:5% 25%" method="POST">
+
             <div class="mb-3">
                 <label for="firstname" class="form-label">Prénom:</label>
                 <input type="text" class="form-control"  name="firstname" required>

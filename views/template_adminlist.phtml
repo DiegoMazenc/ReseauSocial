@@ -1,14 +1,25 @@
-<h1>admin</h1>
-<div class="menuAdmin">
-  <a data-bs-toggle="collapse" href="#collapseCommentaires">Tableau de bord</a>
-  <a data-bs-toggle="collapse" href="#paramCompte">Paramètres compte</a>
-  <a data-bs-toggle="collapse" href="#paramCompte">Admin Articles</a>
-  <a data-bs-toggle="collapse" href="#collapseCommentaires">Admin comptes</a>
+<h1>admin Liste</h1>
+<div class="menuParam">
+<a href="index.php?page=articlelist">Tableau de bord</a>
+  <a href="index.php?page=setting">Paramètres compte</a>
+  <?php if ((int)$_SESSION['admin'] === 1) { ?>
+  <a href="index.php?page=adminlist">Admin</a>
+  <?php } ?>
 </div>
 
 <hr>
+
+<div class="menuAdmin">
+<a href="index.php?page=adminlist">Articles</a>
+  <a href="index.php?page=adminusers">Users</a>
+  <a href="index.php?page=adminComments">Comments</a>
+
+</div>
+
+
+
+
 <div class="adminArticles">
-<a href="?page=adminadd" class="btn btn-primary m-1">Add Picture</a>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -34,8 +45,8 @@
           <td><?= $picture['user_pseudo'] ?></td>
         <?php } ?>
         <td>
-          <a href="index.php?page=adminupdate&id=<?= $picture['id']; ?>" class="btn btn-warning m-1">Update</a>
-          <a href="#" class="btn btn-danger m-1" onclick="deleted(<?= $picture['id'] ?>)">delete</a>
+          <a href="index.php?page=articleupdate&id=<?= $picture['picture_id']; ?>" class="btn btn-warning m-1">Update</a>
+          <a href="#" class="btn btn-danger m-1" onclick="deleted(<?= $picture['picture_id'] ?>)">delete</a>
         </td>
       </tr>
 
@@ -43,14 +54,13 @@
   </tbody>
 
 </table>
-<a href="?page=adminadd" class="btn btn-primary m-1">Add Picture</a>
 </div>
 
 <script>
   function deleted(id) {
     if (confirm("Êtes-vous sûr de vouloir supprimer cet article ?")) {
 
-      window.location.href = `index.php?page=admindelete&id=${id}`;
+      window.location.href = `index.php?page=articledelete&id=${id}`;
     }
   };
 </script>

@@ -1,0 +1,87 @@
+<h1>admin Users</h1>
+<div class="menuParam">
+<a href="index.php?page=articlelist">Tableau de bord</a>
+  <a href="index.php?page=setting">Paramètres compte</a>
+  <?php if ((int)$_SESSION['admin'] === 1) { ?>
+  <a href="index.php?page=adminlist">Admin</a>
+  <?php } ?>
+</div>
+
+<hr>
+
+<div class="menuAdmin">
+<a href="index.php?page=adminlist">Articles</a>
+  <a href="index.php?page=adminusers">Users</a>
+  <a href="index.php?page=admincomments">Comments</a>
+
+</div>
+
+
+
+
+<div class="adminArticles">
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Admin</th>
+      <th scope="col">Id_Photo</th>
+      <th scope="col">FirstName</th>
+      <th scope="col">Name</th>
+      <th scope="col">Pseudo</th>
+      <th scope="col">Gender</th>
+      <th scope="col">Mail</th>
+      <th scope="col">Date Create</th>
+
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <?php foreach ($users as $user) : ?>
+      <tr>
+        <form method="POST">
+        <th scope="row"><?= $user['id'] ?></th>
+        <?php if((int)$user['admin']==1){?>
+           
+        <td><select class="form-control" id="admin" name="admin"  required>
+            <option value="1">Oui</option>
+            <option value="0">Non</option>
+        </select></td>
+            <?php } else{?>
+                
+                <td><select class="form-control" id="admin" name="admin"  required>
+            <option value="0">Non</option>
+            <option value="1">Oui</option>
+        </select></td>
+                <?php } ?>
+        <td><?= $user['id_photo'] ?></td>
+        <td><?= $user['firstname'] ?></td>
+        <td><?= $user['name'] ?></td>
+        <td><?= $user['pseudo'] ?></td>
+        <td><?= $user['gender'] ?></td>
+        <td><?= $user['mail'] ?></td>
+        <td><?= $user['date_create'] ?></td>
+
+        <td>
+        <input type="hidden" name="userId" value="<?= $user['id'] ?>">
+         <input type="submit" name="isAdmin" class="btn btn-warning m-1" value="update">
+          <a href="#" class="btn btn-danger m-1" onclick="deleted(<?= $user['id'] ?>)">delete</a>
+        </td>
+    </form>
+      </tr>
+
+    <?php endforeach; ?>
+  </tbody>
+
+</table>
+</div>
+
+<script>
+  function deleted(id) {
+    if (confirm("Êtes-vous sûr de vouloir supprimer cet article ?")) {
+
+      window.location.href = `index.php?page=admindelete&id=${id}`;
+    }
+  };
+</script>

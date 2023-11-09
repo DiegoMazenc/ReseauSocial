@@ -17,7 +17,7 @@
 <body class="d-flex flex-column h-100">
     <nav class="navbar navbar-expand-lg bg-body-secondary fixed-top">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Navbar</a>
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -35,12 +35,11 @@
 
                 <?php if (isset($_SESSION['pseudo'])) { ?>
                     <div class="navUser">
-                    <a href="index.php?page=adminlist" class="m-2 link-user"><?= $_SESSION['pseudo']; ?>  
-                    <img  src="<?=$_SESSION['photo'];?>" alt="" class="imgUser"></a>
-                    
+                    <a href="index.php?page=articlelist"> <img src="<?= $_SESSION['photo']; ?>" alt="" class="imgUser"></a>
+
                     </div>
                 <?php } else { ?>
-                    <a href="index.php?page=log" class="m-2 link-connect" >Connexion / Inscription</a>
+                    <a href="index.php?page=log" class="m-2 link-connect">Connexion / Inscription</a>
 
                 <?php } ?>
 
@@ -49,15 +48,41 @@
         </div>
     </nav>
     <main>
-        <?php include "./views/template_" . $page . ".phtml"; ?>
-
+        <div class="homeContent">
+            <div class="options">
+                <div class="underOption">
+                    <div class="navSet">
+                        <ul><?php if (isset($_SESSION['pseudo'])) { ?>
+                            <a href="index.php?page=articlelist"><li>
+                                <img src="<?= $_SESSION['photo']; ?>" alt="" class="iconNav">
+                                <?= $_SESSION['pseudo']; ?>
+                            </li></a>
+                            <?php } ?>
+                            <a href="index.php?page=home"><li><img src="https://placehold.co/40" alt="" class="iconNav">Home</li></a>
+                            <?php if (isset($_SESSION['pseudo'])) { ?>
+                            <a href="#"><li><img src="https://placehold.co/40" alt="" class="iconNav">Amis</li></a>
+                            <a href="index.php?page=setting"><li><img src="https://placehold.co/40" alt="" class="iconNav">Paramètres</li></a>
+                            <?php } ?>
+                            
+                        </ul>
+                    </div>
+                    <hr>
+                    <div class="chat">
+                        <p>discutions</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mainAjax">
+                <?php include "./views/template_" . $page . ".phtml"; ?>
+            </div>
+        </div>
     </main>
     <footer class="bg-body-secondary footer mt-auto p-3">
-    <form class="d-flex" role="search">
-                    <input name="page" value="search" type="hidden">
-                    <input name="keywords" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
+        <form class="d-flex" role="search">
+            <input name="page" value="search" type="hidden">
+            <input name="keywords" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
         <section class="container-fluid text-center">
             &copy; DWWM CCI LYON
         </section>

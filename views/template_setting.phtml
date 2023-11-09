@@ -1,9 +1,10 @@
 <h1>Setting</h1>
-<div class="menuAdmin">
-  <a data-bs-toggle="collapse" href="#collapseCommentaires">Tableau de bord</a>
-  <a data-bs-toggle="collapse" href="#paramCompte">Paramètres compte</a>
-  <a data-bs-toggle="collapse" href="#paramCompte">Admin Articles</a>
-  <a data-bs-toggle="collapse" href="#collapseCommentaires">Admin comptes</a>
+<div class="menuParam">
+<a href="index.php?page=articlelist">Tableau de bord</a>
+  <a href="index.php?page=setting">Paramètres compte</a>
+  <?php if ((int)$_SESSION['admin'] === 1) { ?>
+  <a href="index.php?page=adminlist">Admin</a>
+  <?php } ?>
 </div>
 
 <div class="paramCompte">
