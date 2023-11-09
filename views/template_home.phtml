@@ -1,4 +1,6 @@
 <div class="gallery">
+
+  <!-- ADD ARTICLE -->
   <div class="addArticle">
     <a class="form-control" data-bs-toggle="collapse" href="#collapseAddPicture"> Add Article</a>
 
@@ -7,15 +9,17 @@
 
         <div class="mb-3">
           <label for="src" class="form-label">Charger une image</label>
-          <?php if (!empty($error)) { echo "<p style=\"color : red;\">".$error."</p>";} ?>
-          
-            <input type="file" class="form-control" name="image_file" accept="image/*" required>
+          <?php if (!empty($error)) {
+            echo "<p style=\"color : red;\">" . $error . "</p>";
+          } ?>
+
+          <input type="file" class="form-control" name="image_file" accept="image/*" required>
 
         </div>
 
         <div class="mb-3">
           <label for="title" class="form-label">Titre</label>
-          <input type="text" class="form-control" id="title" name="title" placeholder="Titre"required>
+          <input type="text" class="form-control" id="title" name="title" placeholder="Titre" required>
         </div>
 
         <div class="mb-3">
@@ -30,6 +34,7 @@
 
   </div>
 
+  <!-- ARTICLE -->
   <?php foreach ($pictures as $picture) : ?>
 
     <div class="photo">
@@ -47,25 +52,33 @@
       <p class="titrePhoto"><?= $picture['title'] ?></p>
       <p class="descritpionPhoto"><?= $picture['description'] ?></p>
 
+      <!-- Social -->
+      <div class="social" id="social<?= $picture['id'] ?>">
 
-      <div class="social">
-      <?php if (isset($_SESSION['pseudo'])) { ?>
-        <?php if (Likes::cntUnlikes($picture['id']) == false) { ?>
-          <form method="POST">
-            <input type="hidden" name="id_picture" value="<?= $picture['id']; ?>">
-            <input type="hidden" name="id_user" value="<?= $_SESSION['id']; ?>">
-            <input type="submit" class="like" name="like" value="Like <?= $picture['nbrLikes']; ?>">
-          </form>
-        <?php } else { ?>
-          <form method="POST">
-            <input type="hidden" name="id_picture" value="<?= $picture['id']; ?>">
-            <input type="hidden" name="id_user" value="<?= $_SESSION['id']; ?>">
-            <input type="submit" class="unlike" name="unlike" value="Like <?= $picture['nbrLikes']; ?>">
-          </form>
-      <?php }} else {  ?>
-        <input type="submit" class="like" name="like" value="Like <?= $picture['nbrLikes']; ?>">
+
+        <!-- likes -->
+        <?php if (isset($_SESSION['pseudo'])) { ?>
+          <?php if (Likes::cntUnlikes($picture['id']) == false) { ?>
+
+            <form method="POST">
+
+              <input type="hidden" name="id_picture" value="<?= $picture['id']; ?>">
+              <input type="hidden" name="id_user" value="<?= $_SESSION['id']; ?>">
+              <input type="submit" class="like" name="like" id="like" value="Like <?= $picture['nbrLikes']; ?>">
+            </form>
+          <?php } else { ?>
+            <form method="POST">
+              <input type="hidden" name="id_picture" value="<?= $picture['id']; ?>">
+              <input type="hidden" name="id_user" value="<?= $_SESSION['id']; ?>">
+              <input type="submit" class="unlike" name="unlike" id="unlike" value="Like <?= $picture['nbrLikes']; ?>">
+            </form>
+          <?php }
+        } else {  ?>
+          <input type="submit" class="like" name="like" value="Like <?= $picture['nbrLikes']; ?>">
         <?php };  ?>
 
+
+        <!-- commentaires -->
         <?php if ((int)$picture['nbrCom'] > 1) { ?>
           <a class="btnCom" data-bs-toggle="collapse" href="#collapseCommentaires<?= $picture['id'] ?>"><?= $picture['nbrCom'] ?> commentaires </a>
         <?php } else { ?>
@@ -87,8 +100,9 @@
               <p class="unconnectCom">Connectez-vous pour commenter </p>
             <?php }; ?>
           </div>
-
         </form>
+
+        <!-- génération commentaires -->
         <?php $comments = comment::getAllComment($picture['id'])[0]; ?>
         <?php foreach ($comments as $comment) : ?>
           <div class="commentaires">
@@ -119,5 +133,10 @@
 </div>
 
 <script>
+  const like = document.querySelector('#like');
+  const unlike = document.querySelector('#unlike');
 
+  like.addEventListener('click', () => {
+    <?php Picture::getAllGallery() ?>
+  })
 </script>

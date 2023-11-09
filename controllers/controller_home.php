@@ -3,7 +3,23 @@ require_once("./models/Picture.php");
 require_once("./models/Likes.php");
 require_once("./models/Comment.php");
 // $pictures = Picture::getAllCaroussel();
-$pictures = Picture::getAllGallery();
+
+//Insert Like
+if (isset($_POST['like'])) {
+    $id_user = $_POST['id_user'];
+    $id_picture = $_POST['id_picture'];
+    Likes::insertLike($id_picture, $id_user);
+    // header("Location: index.php?page=home");
+    // exit;
+}
+if (isset($_POST['valider'])) {
+    $id = $_POST['id_post'];
+    $id_user = $_SESSION['id'];
+    $com = $_POST['com'];
+    Comment::insertComment($id, $id_user, $com);
+}
+
+
 
 
 if (isset($_POST['submit'])) {
@@ -38,12 +54,7 @@ if (isset($_POST['submit'])) {
     }
 }
 
-if (isset($_POST['valider'])) {
-    $id = $_POST['id_post'];
-    $id_user = $_SESSION['id'];
-    $com = $_POST['com'];
-    Comment::insertComment($id, $id_user, $com);
-}
+
 
 
 if (isset($_POST['supprimer'])) {
@@ -54,22 +65,18 @@ if (isset($_POST['supprimer'])) {
 
 
 
-//Insert Like
-if (isset($_POST['like'])) {
-    $id_user = $_POST['id_user'];
-    $id_picture = $_POST['id_picture'];
-    Likes::insertLike($id_picture, $id_user);
-    header("Location: index.php?page=home");
-    exit;
-}
+
 
 //Delete Like
 if (isset($_POST['unlike'])) {
     $id_user = $_POST['id_user'];
     $id_picture = $_POST['id_picture'];
     Likes::deleteLike($id_picture, $id_user);
-    header("Location: index.php?page=home");
-    exit;
+    // header("Location: index.php?page=home");
+    // exit;
 }
+
+$pictures = Picture::getAllGallery();
+
 include "./views/layout.phtml";
 // --- la vue
