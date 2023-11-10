@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  jeu. 09 nov. 2023 à 15:41
+-- Généré le :  ven. 10 nov. 2023 à 15:38
 -- Version du serveur :  10.4.10-MariaDB
 -- Version de PHP :  7.3.12
 
@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `comment` (
   PRIMARY KEY (`id`),
   KEY `ForeignKey_CommentIdPicture_PictureId` (`id_picture`),
   KEY `FK_commentIdUser_UsersId` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=150 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `comment`
@@ -64,7 +64,55 @@ INSERT INTO `comment` (`id`, `id_picture`, `id_user`, `com`, `date_com`) VALUES
 (85, 23, 2, 'prems\r\n', '2023-11-09 11:34:39'),
 (86, 7, 2, 'hello', '2023-11-09 11:39:46'),
 (88, 8, 2, 'hey', '2023-11-09 12:29:21'),
-(90, 9, 2, 'bye bye', '2023-11-09 15:23:32');
+(90, 9, 2, 'bye bye', '2023-11-09 15:23:32'),
+(91, 32, 2, 'coucou', '2023-11-10 09:47:39'),
+(92, 35, 3, 'Game !', '2023-11-10 10:37:42'),
+(93, 32, 3, 'gfdsdfgfd', '2023-11-10 11:36:14'),
+(94, 9, 3, 'hello', '2023-11-10 11:43:00'),
+(95, 32, 3, 'coucouc', '2023-11-10 11:43:17'),
+(99, 37, 3, 'hello', '2023-11-10 12:15:35'),
+(100, 37, 3, 'coucou', '2023-11-10 12:19:10'),
+(124, 32, 3, 'heyhey', '2023-11-10 13:11:30'),
+(125, 32, 3, 'heyheyhey', '2023-11-10 13:11:57'),
+(127, 32, 3, 'fdsf', '2023-11-10 13:19:13'),
+(128, 32, 3, 'gdff', '2023-11-10 13:24:55'),
+(129, 32, 3, 'hooooi', '2023-11-10 13:25:15'),
+(130, 32, 3, 'gfdg', '2023-11-10 13:25:35'),
+(131, 32, 3, 'fdd', '2023-11-10 13:25:37'),
+(137, 32, 3, 'dss', '2023-11-10 13:29:16'),
+(141, 23, 3, 'cailloux', '2023-11-10 13:30:56'),
+(142, 23, 3, '', '2023-11-10 13:31:00'),
+(143, 23, 3, '', '2023-11-10 13:31:00'),
+(145, 23, 3, 'cailloux', '2023-11-10 13:31:18'),
+(146, 35, 3, 'cailloux', '2023-11-10 13:32:39'),
+(147, 35, 3, 'cailloux', '2023-11-10 13:32:48'),
+(148, 35, 3, 'hemoiu', '2023-11-10 13:37:14'),
+(149, 32, 2, 'hello', '2023-11-10 14:11:35');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `friends`
+--
+
+DROP TABLE IF EXISTS `friends`;
+CREATE TABLE IF NOT EXISTS `friends` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_user` int(11) NOT NULL,
+  `id_follow` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FK_FriendsIdFollow_UsersIdUsers` (`id_follow`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+
+--
+-- Déchargement des données de la table `friends`
+--
+
+INSERT INTO `friends` (`id`, `id_user`, `id_follow`) VALUES
+(1, 2, 3),
+(7, 2, 4),
+(10, 2, 26),
+(11, 2, 26);
 
 -- --------------------------------------------------------
 
@@ -80,7 +128,7 @@ CREATE TABLE IF NOT EXISTS `likes` (
   PRIMARY KEY (`id`),
   KEY `FK_LikesIdPicture_PictureId` (`id_picture`),
   KEY `id_user` (`id_user`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=129 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=212 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `likes`
@@ -93,25 +141,30 @@ INSERT INTO `likes` (`id`, `id_picture`, `id_user`) VALUES
 (24, 2, 4),
 (25, 7, 4),
 (35, 5, 4),
-(41, 1, 2),
 (53, 23, 26),
-(57, 7, 2),
 (85, 30, 2),
 (88, 16, 26),
 (90, 32, 26),
-(93, 16, 3),
-(99, 23, 3),
-(100, 32, 3),
-(101, 32, 3),
-(102, 9, 3),
-(103, 9, 3),
-(106, 5, 2),
-(109, 4, 2),
-(110, 4, 2),
-(111, 4, 2),
-(119, 23, 2),
 (126, 16, 2),
-(128, 9, 2);
+(160, 23, 2),
+(161, 9, 2),
+(168, 2, 2),
+(169, 3, 2),
+(170, 5, 2),
+(174, 8, 2),
+(178, 7, 2),
+(180, 6, 2),
+(183, 7, 3),
+(186, 8, 3),
+(188, 3, 3),
+(196, 6, 3),
+(202, 16, 3),
+(203, 9, 3),
+(207, 37, 3),
+(208, 35, 3),
+(209, 32, 3),
+(210, 1, 3),
+(211, 32, 2);
 
 -- --------------------------------------------------------
 
@@ -155,7 +208,7 @@ CREATE TABLE IF NOT EXISTS `picture` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `FK_pictureIdUser_userId` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `picture`
@@ -179,7 +232,11 @@ INSERT INTO `picture` (`id`, `actif`, `id_user`, `src`, `title`, `description`, 
 (30, 'non', 2, './uploads/Didi1699537849.jpeg', 'ghjhgfds', 'hgfdsdfgh,hg', '2023-11-09 13:57:00', '2023-11-09 13:50:49'),
 (31, 'non', 2, './uploads/Didi1699538188.png', 'fghgfd', 'hgfdsdfg', '2023-11-09 13:56:56', '2023-11-09 13:56:28'),
 (32, 'oui', 26, './uploads/Mi-laine1699538714.jpeg', 'Albert', 'Albert le dev', '2023-11-09 14:05:14', '2023-11-09 14:05:14'),
-(33, 'non', 3, './uploads/Wiwi1699539525.jpeg', 'gfdsqsdf', 'gfdsqdfg', '2023-11-09 14:19:32', '2023-11-09 14:18:45');
+(33, 'non', 3, './uploads/Wiwi1699539525.jpeg', 'gfdsqsdf', 'gfdsqdfg', '2023-11-09 14:19:32', '2023-11-09 14:18:45'),
+(34, 'non', 2, './uploads/Didi1699544576.png', 'je crée un jeux', 'un jeu de combat en full js', '2023-11-10 08:08:14', '2023-11-09 15:42:56'),
+(35, 'oui', 2, './uploads/Didigame!1699606588.png', 'game!', 'fgdsdfgfd', '2023-11-10 08:56:28', '2023-11-10 08:56:28'),
+(36, 'non', 2, './uploads/Didigame!1699606859.png', 'game!', 'fgdsdfgfd', '2023-11-10 09:04:02', '2023-11-10 09:00:59'),
+(37, 'non', 3, './uploads/Wiwipouet1699618528.png', 'pouet', 'coucouc', '2023-11-10 13:09:22', '2023-11-10 12:15:28');
 
 -- --------------------------------------------------------
 
@@ -226,6 +283,12 @@ INSERT INTO `users` (`id`, `admin`, `id_photo`, `firstname`, `name`, `pseudo`, `
 ALTER TABLE `comment`
   ADD CONSTRAINT `FK_commentIdUser_UsersId` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `ForeignKey_CommentIdPicture_PictureId` FOREIGN KEY (`id_picture`) REFERENCES `picture` (`id`);
+
+--
+-- Contraintes pour la table `friends`
+--
+ALTER TABLE `friends`
+  ADD CONSTRAINT `FK_FriendsIdFollow_UsersIdUsers` FOREIGN KEY (`id_follow`) REFERENCES `users` (`id`);
 
 --
 -- Contraintes pour la table `likes`

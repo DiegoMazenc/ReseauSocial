@@ -130,3 +130,116 @@ like.addEventListener('click', () => {
         } else {  ?>
           <input type="submit" class="like" name="like" value="Like <?= $picture['nbrLikes']; ?>">
         <?php };  ?>
+
+
+
+
+        script home 
+
+        
+<script>
+  $(document).ready(function() {
+    $('.likeBtn, .unlikeBtn').click(function(event) {
+      event.preventDefault();
+
+      let button = $(this);
+      let pictureId = button.data('pictureid');
+      let action = button.hasClass('likeBtn') ? 'like' : 'unlike';
+
+      $.ajax({
+        type: 'POST',
+        url: '?page=like',
+        data: {
+          id_picture: pictureId,
+          action: action
+        },
+        dataType: 'json',
+        success: function(response) {
+          console.log(response);
+
+          button.next('p').text(response.likes);
+
+          if (button.hasClass('likeBtn')) {
+            button.text('Like');
+            button.removeClass('likeBtn').addClass('unlikeBtn');
+          } else {
+            button.text('Like');
+            button.removeClass('unlikeBtn').addClass('likeBtn');
+          }
+        }
+      });
+    });
+
+
+    
+
+    function updateComments(comments) {
+      let commentaires = $('.commentaires');
+      commentaires.empty(); // Vide la section des commentaires
+
+      // Ajoute chaque commentaire
+      comments.forEach(comment => {
+        let commentHTML = `
+            <div class="commentaires">
+                <div class="comContent">
+                    <img src="${comment.photo_src}" alt="" class="userPhotoCom">
+                    <div class="idcom">
+                        <div class="cadreCom">
+                            <p class="userComment">${comment.user_pseudo}</p>
+                            <p class="textComment">${comment.com}</p>
+                        </div>
+                        <div class="optionCom">
+                            <p class="dateComment">${comment.date_com}</p>
+                            ${(comment.id_user === <?php echo $_SESSION['id']; ?>) ? `
+                                <form method="POST" class="form_delete">
+                                    <input type="hidden" name="comment_id" value="${comment.comment_id}">
+                                    <input type="submit" name="supprimer" value="Supprimer" class="supprCom">
+                                </form>` : ''}
+                        </div>
+                    </div>
+                </div>
+            </div>`;
+
+            commentaires.append(commentHTML);
+      });
+    }
+
+    $('.formCom').submit(function(event) {
+      event.preventDefault();
+
+      console.log('Form submitted');
+
+      let form = $(this);
+      let pictureId = form.data('picture-id');
+      let commentText = form.find('textarea[name="com"]').val();
+
+      form.find('textarea[name="com"]').val('');
+
+      console.log(pictureId);
+      console.log(commentText);
+
+      $.ajax({
+        type: 'POST',
+        url: '?page=comment',
+        data: {
+          id_picture: pictureId,
+          comment: commentText
+        },
+        dataType: 'json',
+        success: function(response) {
+          console.log(response);
+          if (response.success) {
+            // Mise à jour de la section des commentaires
+            updateComments(response.comments);
+
+            // Effacez le texte du formulaire après l'ajout du commentaire
+            form.find('textarea[name="com"]').val('');
+          }
+
+        }
+      });
+    });
+
+
+  });
+</script>

@@ -97,7 +97,7 @@ background-color: rgb(136, 169, 172);
     border: white 1px solid ;
 }
 
-.likeBtn{
+.likeBtn, .follow{
     border: none;
     border-radius: 10px;
     font-weight: 600;
@@ -106,11 +106,11 @@ background-color: rgb(136, 169, 172);
     background-color: rgba(255, 255, 255, 0);
 }
 
-.likeBtn:hover{
+.likeBtn, .follow:hover{
     background-color: #69a1a331;
 }
 
-.unlikeBtn{
+.unlikeBtn, .unfollow{
     border: none;
     border-radius: 10px;
     font-weight: 600;

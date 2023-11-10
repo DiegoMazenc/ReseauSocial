@@ -1,0 +1,22 @@
+.userfollow{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+.userpseudo{
+    display: flex;
+    align-items: center;
+}
+
+.userfollow img{
+width: 70px;
+height: 70px;
+border-radius: 50%;
+}
+
+.userfollow p{
+    font-size: 19px;
+    margin: 0 0 0 15px;
+}

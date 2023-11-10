@@ -65,13 +65,21 @@ if (isset($_POST['follow'])) {
     $sql->execute([$id_sender , $id_receiver]);
 }
 
-$db = connectDB();
-$id_user = $_SESSION['id'];
-$id = $_GET['id'];
+if (isset($_POST['unfollow'])) {
+    $id_sender = $_SESSION['id'];
+    $id_receiver = $_POST['id_follow'];
 
+    $db = connectDB();
+    $sql = $db->prepare('DELETE FROM friends WHERE id_user=? AND id_follow=?');
+    $sql->execute([$id_sender , $id_receiver]);
+}
+
+    $db = connectDB();
+    $id_user = $_SESSION['id'];
+    $id = $_GET['id'];
     $sql = $db->prepare("SELECT * FROM friends WHERE id_user =$id_user AND id_follow=$id ");
     $sql->execute();
-    $friends = $sql->fetchAll(PDO::FETCH_ASSOC);
+    $friends = $sql->fetch(PDO::FETCH_ASSOC);
 
 
 $id = $_GET['id'];

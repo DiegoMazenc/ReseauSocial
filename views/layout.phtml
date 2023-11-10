@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="./asset/css/styles_search.css">
     <link rel="stylesheet" href="./asset/css/styles_log.css">
     <link rel="stylesheet" href="./asset/css/styles_pageusers.css">
+    <link rel="stylesheet" href="./asset/css/styles_follow.css">
     
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
@@ -56,14 +57,14 @@
                 <div class="underOption">
                     <div class="navSet">
                         <ul><?php if (isset($_SESSION['pseudo'])) { ?>
-                            <a href="index.php?page=articlelist"><li>
+                            <a href="?page=userpage&id=<?= $_SESSION['id']; ?>"><li>
                                 <img src="<?= $_SESSION['photo']; ?>" alt="" class="iconNav">
                                 <?= $_SESSION['pseudo']; ?>
                             </li></a>
                             <?php } ?>
                             <a href="index.php?page=home"><li><img src="https://placehold.co/40" alt="" class="iconNav">Home</li></a>
                             <?php if (isset($_SESSION['pseudo'])) { ?>
-                            <a href="#"><li><img src="https://placehold.co/40" alt="" class="iconNav">Amis</li></a>
+                            <a href="index.php?page=follow"><li><img src="https://placehold.co/40" alt="" class="iconNav">Pages Follow</li></a>
                             <a href="index.php?page=setting"><li><img src="https://placehold.co/40" alt="" class="iconNav">Paramètres</li></a>
                             <?php } ?>
                             

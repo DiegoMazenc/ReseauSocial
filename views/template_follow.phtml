@@ -1,0 +1,13 @@
+
+                <?php foreach ($friends as $friend) : ?>
+                    <div class="userfollow">
+                        <div class="userpseudo">
+                        <img src="<?= $friend['photo_src'] ?>" alt="">
+                        <p><?= $friend['user_pseudo'] ?></p></div>
+                        <div class="followOption">
+                        <button>Ne plus suivre</button>
+                        <button>Discuter</button></div>
+                    </div>
+
+                <?php endforeach; ?>
+                

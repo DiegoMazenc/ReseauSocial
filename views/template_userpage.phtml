@@ -1,71 +1,81 @@
-
 <div class="header">
-    <div class="banniereUser">
+  <div class="banniereUser">
 
     <div class="photoUser">
-          <img src="<?= $photo['photo_src']; ?>" alt="" >
-          <p><?= $photo['user_pseudo']; ?></p>
-        </div>
+      <img src="<?= $photo['photo_src']; ?>" alt="">
+      <p><?= $photo['user_pseudo']; ?></p>
     </div>
-   
-    <div class="menuUser">
-        <?php if($friends == true) { ?>
+  </div>
+
+  <div class="menuUser">
+    <?php
+    $id = $_GET['id'];
+    if ((int)$_SESSION['id'] !== (int)$id) { ?>
+      <?php if ($friends == false) { ?>
         <form method="POST">
-        <?php $id = $_GET['id']; ?>
-            <input type="text" name="id_follow" value="<?= $id ?>">
-        <input type="submit" name="follow" value="Follow">
+
+          <input type="hidden" name="id_follow" value="<?= $id ?>">
+          <input type="submit" name="follow" value="Follow" class="follow">
         </form>
-        <?php } else { ?>
-            <form method="POST">
-        <?php $id = $_GET['id']; ?>
-            <input type="text" name="id_follow" value="<?= $id ?>">
-        <input type="submit" name="follow" value="Follow" style="background-color : red;">
+      <?php } else { ?>
+        <form method="POST">
+          <input type="hidden" name="id_follow" value="<?= $id ?>">
+          <input type="submit" name="unfollow" value="Follow" class="unfollow">
         </form>
-            <?php }  ?>
-    </div>
-    <hr>
+      <?php }  ?>
+    <?php } else { ?>
+      <div class="menuParam">
+  <a href="index.php?page=articlelist">Tableau de bord</a>
+  <a href="index.php?page=setting">Paramètres compte</a>
+  <?php if ((int)$_SESSION['admin'] === 1) { ?>
+    <a href="index.php?page=adminlist">Admin</a>
+  <?php } ?>
+</div>
+    <?php }  ?>
+  </div>
+  <hr>
 </div>
 
 <div class="gallery">
 
   <!-- ADD ARTICLE -->
-  <?php 
+  <?php
   $id = $_GET['id'];
-  if ((int)$_SESSION['id'] == (int)$id) : 
-  
+  if ((int)$_SESSION['id'] == (int)$id) :
+
   ?>
-  <div class="addArticle">
-    <a class="form-control" data-bs-toggle="collapse" href="#collapseAddPicture"> Add Article</a>
+    <div class="addArticle">
+      <a class="form-control" data-bs-toggle="collapse" href="#collapseAddPicture"> Add Article</a>
 
-    <div class="collapse" id="collapseAddPicture">
-      <form style="margin:5%" method="POST" enctype="multipart/form-data">
+      <div class="collapse" id="collapseAddPicture">
+        <form style="margin:5%" method="POST" enctype="multipart/form-data">
 
-        <div class="mb-3">
-          <label for="src" class="form-label">Charger une image</label>
-          <?php if (!empty($error)) {
-            echo "<p style=\"color : red;\">" . $error . "</p>";
-          } ?>
+          <div class="mb-3">
+            <label for="src" class="form-label">Charger une image</label>
+            <?php if (!empty($error)) {
+              echo "<p style=\"color : red;\">" . $error . "</p>";
+            } ?>
 
-          <input type="file" class="form-control" name="image_file" accept="image/*" required>
+            <input type="file" class="form-control" name="image_file" accept="image/*" required>
 
-        </div>
+          </div>
 
-        <div class="mb-3">
-          <label for="title" class="form-label">Titre</label>
-          <input type="text" class="form-control" id="title" name="title" placeholder="Titre" required>
-        </div>
+          <div class="mb-3">
+            <label for="title" class="form-label">Titre</label>
+            <input type="text" class="form-control" id="title" name="title" placeholder="Titre" required>
+          </div>
 
-        <div class="mb-3">
-          <label for="description" class="form-label">Description</label>
-          <textarea type="text" class="form-control" id="description" name="description" placeholder="Description"></textarea>
-        </div>
+          <div class="mb-3">
+            <label for="description" class="form-label">Description</label>
+            <textarea type="text" class="form-control" id="description" name="description" placeholder="Description"></textarea>
+          </div>
 
-        <input type="submit" class="form-control" id="submit" name="submit" value="Add Picture">
+          <input type="submit" class="form-control" id="submit" name="submit" value="Add Picture">
 
-      </form>
+        </form>
+      </div>
+
     </div>
-
-  </div>
   <?php endif; ?>
 
   <!-- ARTICLE -->
@@ -204,7 +214,7 @@
         }
       });
     });
-    
+
 
     $('.formCom').submit(function(event) {
       event.preventDefault();
@@ -231,7 +241,7 @@
         success: function(response) {
           console.log(response);
           if (response.success) {
-           
+
           }
 
         }
@@ -239,5 +249,5 @@
     });
 
 
-  }); 
+  });
 </script>
