@@ -39,7 +39,7 @@ class Users
     public static function photoProfil($id)
     {
         $db = connectDB();
-        $sql = $db->prepare("SELECT *, photo.src AS photo_src FROM users INNER JOIN photo ON photo.id = users.id_photo WHERE users.id=$id");
+        $sql = $db->prepare("SELECT *, photo.src AS photo_src, users.pseudo AS user_pseudo, users.id AS user_id FROM users INNER JOIN photo ON photo.id = users.id_photo WHERE users.id=$id");
         $sql->execute();
         $photo = $sql->fetch(PDO::FETCH_ASSOC);
         return $photo;

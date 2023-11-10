@@ -23,6 +23,7 @@ class Picture
         $sql = $db->prepare("SELECT picture.*,
          users.pseudo AS user_pseudo, 
          photo.src AS photo_src ,
+         users.id AS user_id,
          (SELECT COUNT(*) FROM likes WHERE likes.id_picture = picture.id) AS nbrLikes,
          (SELECT COUNT(*) FROM comment WHERE comment.id_picture = picture.id) AS nbrCom
          FROM picture 
@@ -51,7 +52,27 @@ class Picture
         $pictures = $sql->fetch(PDO::FETCH_ASSOC);
         return $pictures;
     }
-
+    
+       //====USERPAGE===\\
+       public static function getUserArticle($id)
+       {
+        $pictures = [];
+        $db = connectDB();
+        $sql = $db->prepare("SELECT picture.*,
+         users.pseudo AS user_pseudo, 
+         photo.src AS photo_src ,
+         (SELECT COUNT(*) FROM likes WHERE likes.id_picture = picture.id) AS nbrLikes,
+         (SELECT COUNT(*) FROM comment WHERE comment.id_picture = picture.id) AS nbrCom
+         FROM picture 
+         INNER JOIN users ON users.id = picture.id_user 
+         INNER JOIN photo ON photo.id = users.id_photo
+         WHERE picture.actif = 'oui' AND picture.id_user = $id
+         ORDER BY picture.id DESC");
+        $sql->execute();
+        $pictures = $sql->fetchAll(PDO::FETCH_ASSOC);
+        return $pictures;
+       }
+   
     //====ADMIN ADD====\\
     public static function insertPicture($src, $title, $description, $userId)
     {

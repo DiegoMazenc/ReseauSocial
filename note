@@ -108,3 +108,25 @@ like.addEventListener('click', () => {
 }
 
 })
+
+
+        <!-- likes -->
+        <?php if (isset($_SESSION['pseudo'])) { ?>
+          <?php if (Likes::cntUnlikes($picture['id']) == false) { ?>
+
+            <form method="POST" class="likeForm" data-pictureid="<?= $picture['id']; ?>">
+
+              <input type="hidden" name="id_picture" value="<?= $picture['id']; ?>">
+              <input type="hidden" name="id_user" value="<?= $_SESSION['id']; ?>">
+              <input type="submit" class="like" name="like" id="likeBtn" value="Like <?= $picture['nbrLikes']; ?>">
+            </form>
+          <?php } else { ?>
+            <form method="POST"  class="unlikeForm" data-pictureid="<?= $picture['id']; ?>" >
+              <input type="hidden" name="id_picture" value="<?= $picture['id']; ?>" >
+              <input type="hidden" name="id_user" value="<?= $_SESSION['id']; ?>">
+              <input type="submit" class="unlike" name="unlike" id="unlikeBtn" value="Like <?= $picture['nbrLikes']; ?>">
+            </form>
+          <?php }
+        } else {  ?>
+          <input type="submit" class="like" name="like" value="Like <?= $picture['nbrLikes']; ?>">
+        <?php };  ?>

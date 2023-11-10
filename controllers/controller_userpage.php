@@ -2,16 +2,8 @@
 require_once("./models/Picture.php");
 require_once("./models/Likes.php");
 require_once("./models/Comment.php");
-// $pictures = Picture::getAllCaroussel();
+require_once("./models/Users.php");
 
-// Insert Like
-// if (isset($_POST['like'])) {
-//     $id_user = $_POST['id_user'];
-//     $id_picture = $_POST['id_picture'];
-//     Likes::insertLike($id_picture, $id_user);
-//     // header("Location: index.php?page=home");
-//     // exit;
-// }
 if (isset($_POST['valider'])) {
     $id = $_POST['id_post'];
     $id_user = $_SESSION['id'];
@@ -64,21 +56,27 @@ if (isset($_POST['supprimer'])) {
     Comment::deleteComment($comment_id);
 }
 
+if (isset($_POST['follow'])) {
+    $id_sender = $_SESSION['id'];
+    $id_receiver = $_POST['id_follow'];
+
+    $db = connectDB();
+    $sql = $db->prepare('INSERT INTO friends (id_user,id_follow) VALUES(?,?)');
+    $sql->execute([$id_sender , $id_receiver]);
+}
+
+$db = connectDB();
+$id_user = $_SESSION['id'];
+$id = $_GET['id'];
+
+    $sql = $db->prepare("SELECT * FROM friends WHERE id_user =$id_user AND id_follow=$id ");
+    $sql->execute();
+    $friends = $sql->fetchAll(PDO::FETCH_ASSOC);
 
 
-
-
-
-// Delete Like
-// if (isset($_POST['unlike'])) {
-//     $id_user = $_POST['id_user'];
-//     $id_picture = $_POST['id_picture'];
-//     Likes::deleteLike($id_picture, $id_user);
-//     // header("Location: index.php?page=home");
-//     // exit;
-// }
-
-$pictures = Picture::getAllGallery();
+$id = $_GET['id'];
+$pictures = Picture::getUserArticle($id);
+$photo = Users::photoProfil($id);
 
 include "./views/layout.phtml";
 // --- la vue

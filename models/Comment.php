@@ -28,14 +28,12 @@ class comment
         return [$comments,$nbrCom];
     }
 
-    public static function insertComment($id, $id_user, $com)
+    public static function insertComment($id_picture, $id_user, $comment_text)
     {
         $db = connectDB();
-        $sql = $db->prepare('INSERT 
-        INTO comment (id_picture,id_user,com) 
-        VALUES(?,?,?)');
+        $sql = $db->prepare('INSERT INTO comment (id_picture,id_user,com) VALUES(?,?,?)');
     
-        $sql->execute(array($id, $id_user, $com));
+        $sql->execute(array($id_picture, $id_user, $comment_text));
         return true;
     }
 
