@@ -1,38 +1,45 @@
 <div class="header">
   <div class="banniereUser">
+    <div class="imgbanniere">
+    <img src="<?= $photo['src_banner']; ?>" alt="">
+  </div>
 
-    <div class="photoUser">
-      <img src="<?= $photo['photo_src']; ?>" alt="">
-      <p><?= $photo['user_pseudo']; ?></p>
+    <div class="optionUser">
+
+      <div class="photoUser">
+        <div class="blocPhotoUser">
+        <img src="<?= $photo['src_photo']; ?>" alt="">
+      </div>
+        <p><?= $photo['pseudo']; ?></p>
+      </div>
+
+      <div class="menuUser">
+        <?php
+        $id = $_GET['id'];
+        if ((int)$_SESSION['id'] !== (int)$id) { ?>
+          <?php if ($friends == false) { ?>
+            <form method="POST">
+
+              <input type="hidden" name="id_follow" value="<?= $id ?>">
+              <input type="submit" name="follow" value="Follow" class="follow">
+            </form>
+          <?php } else { ?>
+            <form method="POST">
+              <input type="hidden" name="id_follow" value="<?= $id ?>">
+              <input type="submit" name="unfollow" value=" ✓ Follow" class="unfollow">
+            </form>
+          <?php }  ?>
+        <?php } else { ?>
+          <div class="">
+            <a href="index.php?page=articlelist" class="form-control btnDashBoard">Tableau de Bord</a>
+          </div>
+        <?php }  ?>
+      </div>
+
     </div>
   </div>
 
-  <div class="menuUser">
-    <?php
-    $id = $_GET['id'];
-    if ((int)$_SESSION['id'] !== (int)$id) { ?>
-      <?php if ($friends == false) { ?>
-        <form method="POST">
 
-          <input type="hidden" name="id_follow" value="<?= $id ?>">
-          <input type="submit" name="follow" value="Follow" class="follow">
-        </form>
-      <?php } else { ?>
-        <form method="POST">
-          <input type="hidden" name="id_follow" value="<?= $id ?>">
-          <input type="submit" name="unfollow" value="Follow" class="unfollow">
-        </form>
-      <?php }  ?>
-    <?php } else { ?>
-      <div class="menuParam">
-  <a href="index.php?page=articlelist">Tableau de bord</a>
-  <a href="index.php?page=setting">Paramètres compte</a>
-  <?php if ((int)$_SESSION['admin'] === 1) { ?>
-    <a href="index.php?page=adminlist">Admin</a>
-  <?php } ?>
-</div>
-    <?php }  ?>
-  </div>
   <hr>
 </div>
 
@@ -84,7 +91,7 @@
     <div class="photo">
       <div class="userInfo">
         <div class="userName">
-          <img src="<?= $picture['photo_src']; ?>" alt="" class="imgUser">
+          <img src="<?= $picture['user_photo']; ?>" alt="" class="imgUser">
           <p><?= $picture['user_pseudo']; ?></p>
         </div>
         <p class="datePhotos"><?= date_format(date_create($picture['created_at']), "d M Y")  ?></p>
@@ -155,7 +162,7 @@
         <?php foreach ($comments as $comment) : ?>
           <div class="commentaires" id="commentaires<?= $picture['id'] ?>">
             <div class="comContent">
-              <img src="<?= $comment['photo_src']; ?>" alt="" class="userPhotoCom">
+              <img src="<?= $comment['user_photo']; ?>" alt="" class="userPhotoCom">
               <div class="idcom">
                 <div class="cadreCom">
                   <p class="userComment"><?= $comment['user_pseudo']; ?></p>
@@ -163,9 +170,11 @@
                 </div>
                 <div class="optionCom">
                   <p class="dateComment"><?= $comment['date_com']; ?></p>
+                  <?php
+                  ?>
                   <?php if (isset($_SESSION['id']) && (int)$_SESSION['id'] === (int)$comment['id_user']) { ?>
                     <form method="POST" id="form_delete">
-                      <input type="hidden" name="comment_id" value="<?= $comment['comment_id'];; ?>">
+                      <input type="hidden" name="comment_id" value="<?= $comment['comment_id']; ?>">
                       <input type="submit" name="supprimer" value="Supprimer" class="supprCom">
                     </form>
                   <?php }; ?>
@@ -225,7 +234,7 @@
       let pictureId = form.data('picture-id');
       let commentText = form.find('textarea[name="com"]').val();
 
-      form.find('textarea[name="com"]').val('');
+
 
       console.log(pictureId);
       console.log(commentText);
@@ -241,13 +250,11 @@
         success: function(response) {
           console.log(response);
           if (response.success) {
-
+            form.find('textarea[name="com"]').val('');
           }
 
         }
       });
     });
-
-
   });
 </script>

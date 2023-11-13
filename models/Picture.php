@@ -1,6 +1,8 @@
 <?php
 
 require_once("./services/database.php");
+require_once("./services/class/Database.php");
+$db = new Database();
 
 class Picture
 {
@@ -18,22 +20,21 @@ class Picture
     //====GALLERY===\\
     public static function getAllGallery()
     {
-        $pictures = [];
-        $db = connectDB();
-        $sql = $db->prepare("SELECT picture.*,
-         users.pseudo AS user_pseudo, 
-         photo.src AS photo_src ,
-         users.id AS user_id,
-         (SELECT COUNT(*) FROM likes WHERE likes.id_picture = picture.id) AS nbrLikes,
-         (SELECT COUNT(*) FROM comment WHERE comment.id_picture = picture.id) AS nbrCom
-         FROM picture 
-         INNER JOIN users ON users.id = picture.id_user 
-         INNER JOIN photo ON photo.id = users.id_photo
-         WHERE picture.actif = 'oui'
-         ORDER BY picture.id DESC");
-        $sql->execute();
-        $pictures = $sql->fetchAll(PDO::FETCH_ASSOC);
+        $db = new Database();
+        $pictures = $db->selectAll("SELECT picture.*,
+        users.pseudo AS user_pseudo, 
+        photo.src AS photo_src ,
+        users.id AS user_id,
+       users.src_photo AS user_photo,
+        (SELECT COUNT(*) FROM likes WHERE likes.id_picture = picture.id) AS nbrLikes,
+        (SELECT COUNT(*) FROM comment WHERE comment.id_picture = picture.id) AS nbrCom
+        FROM picture 
+        INNER JOIN users ON users.id = picture.id_user 
+        INNER JOIN photo ON photo.id = users.id_photo
+        WHERE picture.actif = 'oui'
+        ORDER BY picture.id DESC");
         return $pictures;
+
     }
 
 
@@ -44,7 +45,7 @@ class Picture
         $db = connectDB();
         $id = $_GET['id'];
         $sql = $db->prepare("SELECT *, 
-            users.pseudo AS user_pseudo 
+            users.pseudo AS user_pseudo
             FROM picture 
             INNER JOIN users ON users.id = picture.id_user 
             WHERE picture.id = $id");
@@ -61,6 +62,7 @@ class Picture
         $sql = $db->prepare("SELECT picture.*,
          users.pseudo AS user_pseudo, 
          photo.src AS photo_src ,
+         users.src_photo AS user_photo,
          (SELECT COUNT(*) FROM likes WHERE likes.id_picture = picture.id) AS nbrLikes,
          (SELECT COUNT(*) FROM comment WHERE comment.id_picture = picture.id) AS nbrCom
          FROM picture 

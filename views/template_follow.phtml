@@ -1,13 +1,40 @@
 
-                <?php foreach ($friends as $friend) : ?>
-                    <div class="userfollow">
-                        <div class="userpseudo">
-                        <img src="<?= $friend['photo_src'] ?>" alt="">
-                        <p><?= $friend['user_pseudo'] ?></p></div>
-                        <div class="followOption">
-                        <button>Ne plus suivre</button>
-                        <button>Discuter</button></div>
-                    </div>
+<?php foreach ($friends as $friend) : ?>
+    <div class="userfollow" id="friend_<?= $friend['id_follow']; ?>">
+        <div class="userpseudo">
+            <img src="<?= $friend['photo_src'] ?>" alt="">
+            <p><?= $friend['user_pseudo'] ?></p>
+        </div>
+        <div class="followOption">
+            <button class="unfollowed  form-control" data-followid="<?= $friend['id_follow']; ?>">Unfollow</button>
+            <button class="  form-control">Discuter</button>
+        </div>
+    </div>
+<?php endforeach; ?>
 
-                <?php endforeach; ?>
-                
+<script>
+$(document).ready(function() {
+    $('.unfollowed').click(function(event) {
+        event.preventDefault();
+        
+
+        let button = $(this);
+        let followId = button.data('followid');
+        let userFollow = document.querySelector('#friend_'+followId)
+        userFollow.classList.add('transitionUnfollow');
+        setTimeout(() => {
+        userFollow.style.display = "none";
+    }, 300);
+
+        $.ajax({
+    type: 'POST',
+    url: '?page=follow',
+    data: {
+        followId: followId,
+    },
+   
+    
+});
+});
+});
+</script>

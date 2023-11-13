@@ -39,8 +39,8 @@
     <div class="photo">
       <div class="userInfo">
         <div class="userName">
-          <img src="<?= $picture['photo_src']; ?>" alt="" class="imgUser">
-          <a href="?page=userpage&id=<?= $picture['user_id'] ?>"><?= $picture['user_pseudo']; ?></a>
+          
+          <a href="?page=userpage&id=<?= $picture['user_id'] ?>" class="pseudoLink"><img src="<?= $picture['user_photo']; ?>" alt="" class="imgUser"><?= $picture['user_pseudo']; ?></a>
         </div>
         <p class="datePhotos"><?= date_format(date_create($picture['created_at']), "d M Y")  ?></p>
       </div>
@@ -107,10 +107,10 @@
 
         <!-- génération commentaires -->
         <?php $comments = comment::getAllComment($picture['id'])[0]; ?>
-        <?php foreach ($comments as $comment) : ?>
+                <?php foreach ($comments as $comment) : ?>
           <div class="commentaires" id="commentaires<?= $picture['id'] ?>">
             <div class="comContent">
-              <img src="<?= $comment['photo_src']; ?>" alt="" class="userPhotoCom">
+              <img src="<?= $comment['user_photo']; ?>" alt="" class="userPhotoCom">
               <div class="idcom">
                 <div class="cadreCom">
                   <p class="userComment"><?= $comment['user_pseudo']; ?></p>

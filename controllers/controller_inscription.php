@@ -8,13 +8,14 @@ if(isset($_POST['submit'])){
     $gender = $_POST['gender'];
     $mail = $_POST['mail'];
     $password = $_POST['password'];
-    
-    Users::inscription($password, $firstname, $name, $pseudo, $gender, $mail, $hash);
+    $hash = password_hash(strip_tags($password), PASSWORD_DEFAULT);
+    Users::inscription($firstname, $name, $pseudo, $gender, $mail, $hash);
 
     header("Location: index.php?page=home");
     exit;
     
 }
+
 
 // --- on charge la vue
 include "./views/layout.phtml";

@@ -45,22 +45,23 @@
 .homeContent{
     margin-top: 55px;
     display: grid;
-    grid-template-columns: 350px 3fr;
+    grid-template-columns: 250px 3fr;
 }
 
 .options{
+    z-index: 6;
     position: relative;
     border-right: 1px solid black;
     min-height: 100vh;
     max-height: auto;
-    background-color: rgb(52, 111, 121)
+    background-color: rgb(52, 111, 121);
 
     
 }
 
 .underOption {
     position: fixed;
-    width: 350px;
+    width: 250px;
 
 }
 .navSet ul{
@@ -138,3 +139,10 @@ background-color: rgb(136, 169, 172);
     margin: 0;
     padding-left: 10px;
 }
+
+.userName a{
+    text-decoration: none;
+    color: gray;
+    font-weight: 600;
+}
+

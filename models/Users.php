@@ -14,6 +14,15 @@ class Users
         return $users;
     }
 
+    public static function userInfos($id)
+    {
+        $db = connectDB();
+        $sql = $db->prepare('SELECT * FROM users WHERE id=?');
+        $sql->execute([$id]);
+        $users = $sql->fetch(PDO::FETCH_ASSOC);
+        return $users;
+    }
+
 
     //Inscription
     public static function inscription($firstname, $name, $pseudo, $gender, $mail, $hash)
@@ -57,11 +66,11 @@ class Users
         return $user;
     }
 
-    public static function updateUser($new_firstname, $new_name, $new_pseudo, $new_gender, $new_mail, $new_password, $id)
+    public static function updateUser($new_firstname, $new_name, $new_pseudo, $new_gender, $new_mail , $id)
     {
         $db = connectDB();
-        $sql = $db->prepare("UPDATE users SET firstname=?, name=?, pseudo=?, gender=?, mail=?, password=? WHERE id = ?");
-        $sql->execute(array($new_firstname, $new_name, $new_pseudo, $new_gender, $new_mail, $new_password, $id));
+        $sql = $db->prepare("UPDATE users SET firstname=?, name=?, pseudo=?, gender=?, mail=? WHERE id = ?");
+        $sql->execute(array($new_firstname, $new_name, $new_pseudo, $new_gender, $new_mail , $id));
         return true;
     }
 

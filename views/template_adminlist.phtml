@@ -1,66 +1,155 @@
-<h1>admin Liste</h1>
-<div class="menuParam">
-<a href="index.php?page=articlelist">Tableau de bord</a>
-  <a href="index.php?page=setting">Paramètres compte</a>
-  <?php if ((int)$_SESSION['admin'] === 1) { ?>
-  <a href="index.php?page=adminlist">Admin</a>
-  <?php } ?>
-</div>
+<?php if ($_SESSION['admin']) { ?>
+  <a href="index.php?page=articlelist" class="btnReturn"><span><</span> Tableau de bord</a>
+  <div class="menuParam">
+    <a href="#" id="btnArticle" class="btnSelect">Articles</a>
+    <a href="#" id="btnUser">Users</a>
+    <!-- <a href="#" id="btnSetting">Comments</a> -->
 
-<hr>
+  </div>
 
-<div class="menuAdmin">
-<a href="index.php?page=adminlist">Articles</a>
-  <a href="index.php?page=adminusers">Users</a>
-  <a href="index.php?page=adminComments">Comments</a>
+  <hr>
 
-</div>
+  <div class="adminArticles">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col" style="width:12%">Source</th>
+          <th scope="col">Titre</th>
+          <th scope="col">Description</th>
+          <?php if ((int)$_SESSION['admin'] === 1) { ?>
+            <th scope="col">Auteur</th>
+          <?php } ?>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
 
+      <tbody>
+        <?php foreach ($pictures as $picture) : ?>
+          <tr>
+            <th scope="row"><?= $picture['picture_id'] ?></th>
+            <td><img src="<?= $picture['src'] ?>" alt="<?= $picture['title'] ?>" style="width : 100%;"></td>
+            <td><?= $picture['title'] ?></td>
+            <td><?= $picture['description'] ?></td>
+            <?php if ((int)$_SESSION['admin'] === 1) { ?>
+              <td><?= $picture['user_pseudo'] ?></td>
+            <?php } ?>
+            <td>
+              <a href="index.php?page=articleupdate&id=<?= $picture['picture_id']; ?>" class="btn btn-warning m-1">Update</a>
+              <a href="#" class="btn btn-danger m-1" onclick="deleted(<?= $picture['picture_id'] ?>)">delete</a>
+            </td>
+          </tr>
 
+        <?php endforeach; ?>
+      </tbody>
 
+    </table>
+  </div>
 
-<div class="adminArticles">
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col" style="width:12%">Source</th>
-      <th scope="col">Titre</th>
-      <th scope="col">Description</th>
-      <?php if ((int)$_SESSION['admin'] === 1) { ?>
-        <th scope="col">Auteur</th>
-      <?php } ?>
-      <th scope="col">Actions</th>
-    </tr>
-  </thead>
+  <div class="adminUsers">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Admin</th>
+          <th scope="col">Id_Photo</th>
+          <th scope="col">FirstName</th>
+          <th scope="col">Name</th>
+          <th scope="col">Pseudo</th>
+          <th scope="col">Gender</th>
+          <th scope="col">Mail</th>
+          <th scope="col">Date Create</th>
 
-  <tbody>
-    <?php foreach ($pictures as $picture) : ?>
-      <tr>
-        <th scope="row"><?= $picture['picture_id'] ?></th>
-        <td><img src="<?= $picture['src'] ?>" alt="<?= $picture['title'] ?>" style="width : 100%;"></td>
-        <td><?= $picture['title'] ?></td>
-        <td><?= $picture['description'] ?></td>
-        <?php if ((int)$_SESSION['admin'] === 1) { ?>
-          <td><?= $picture['user_pseudo'] ?></td>
-        <?php } ?>
-        <td>
-          <a href="index.php?page=articleupdate&id=<?= $picture['picture_id']; ?>" class="btn btn-warning m-1">Update</a>
-          <a href="#" class="btn btn-danger m-1" onclick="deleted(<?= $picture['picture_id'] ?>)">delete</a>
-        </td>
-      </tr>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
 
-    <?php endforeach; ?>
-  </tbody>
+      <tbody>
+        <?php foreach ($users as $user) : ?>
+          <tr>
+            <form method="POST">
+              <th scope="row"><?= $user['id'] ?></th>
+              <?php if ((int)$user['admin'] == 1) { ?>
 
-</table>
-</div>
+                <td><select class="form-control" id="admin" name="admin" required>
+                    <option value="1">Oui</option>
+                    <option value="0">Non</option>
+                  </select></td>
+              <?php } else { ?>
 
-<script>
-  function deleted(id) {
-    if (confirm("Êtes-vous sûr de vouloir supprimer cet article ?")) {
+                <td><select class="form-control" id="admin" name="admin" required>
+                    <option value="0">Non</option>
+                    <option value="1">Oui</option>
+                  </select></td>
+              <?php } ?>
+              <td><?= $user['id_photo'] ?></td>
+              <td><?= $user['firstname'] ?></td>
+              <td><?= $user['name'] ?></td>
+              <td><?= $user['pseudo'] ?></td>
+              <td><?= $user['gender'] ?></td>
+              <td><?= $user['mail'] ?></td>
+              <td><?= $user['date_create'] ?></td>
 
-      window.location.href = `index.php?page=articledelete&id=${id}`;
-    }
-  };
-</script>
+              <td>
+                <input type="hidden" name="userId" value="<?= $user['id'] ?>">
+                <input type="submit" name="isAdmin" class="btn btn-warning m-1" value="update">
+                <a href="#" class="btn btn-danger m-1" onclick="deleted(<?= $user['id'] ?>)">delete</a>
+              </td>
+            </form>
+          </tr>
+
+        <?php endforeach; ?>
+      </tbody>
+
+    </table>
+  </div>
+
+  <script>
+
+let btnArticle = document.querySelector('#btnArticle');
+let btnUser = document.querySelector('#btnUser');
+let adminArticles = document.querySelector('.adminArticles');
+let adminUsers = document.querySelector('.adminUsers');
+
+adminArticles.style.display = 'block';
+adminUsers.style.display = 'none';
+
+btnArticle.addEventListener('click', () => {
+  btnArticle.classList.add('btnSelect');
+  btnUser.classList.remove('btnSelect');
+  adminUsers.classList.remove('transitionRight');
+  setTimeout(() => {
+  // Afficher la liste des articles
+  adminArticles.classList.remove('transitionLeft');
+  adminArticles.style.display = 'block';
+  // Masquer les paramètres utilisateur
+  adminUsers.style.display = 'none';
+  }, 300);
+
+});
+
+btnUser.addEventListener('click', () => {
+  adminArticles.classList.add('transitionLeft');
+  btnArticle.classList.remove('btnSelect');
+  btnUser.classList.add('btnSelect');
+  
+  setTimeout(() => {
+    adminArticles.style.display = 'none';
+  adminUsers.classList.add('transitionRight');
+  adminUsers.style.display = 'block';
+ 
+  }, 300);
+
+});
+
+    function deleted(id) {
+      if (confirm("Êtes-vous sûr de vouloir supprimer cet article ?")) {
+
+        window.location.href = `index.php?page=articledelete&id=${id}`;
+      }
+    };
+  </script>
+
+<?php } else { ?>
+  <p>Vous n'avez pas les autorisations nécéssaires pour accéder à cette page</p>
+<?php   }; ?>

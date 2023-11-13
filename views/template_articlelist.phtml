@@ -1,14 +1,17 @@
-<h1>admin</h1>
-<div class="menuParam">
-  <a href="index.php?page=articlelist">Tableau de bord</a>
-  <a href="index.php?page=setting">Paramètres compte</a>
+<?php if ((int)$_SESSION['admin'] === 1) { ?><div class="navSession"><?php } ?>
+  <a href="index.php?page=userpage&id=<?= $_SESSION['id']; ?>" class="btnReturn"><span><</span> Ma Page</a>
   <?php if ((int)$_SESSION['admin'] === 1) { ?>
-    <a href="index.php?page=adminlist">Admin</a>
-  <?php } ?>
+    <a href="index.php?page=adminlist" class="form-control btnDashBoard btnAdmin">Admin</a>
+
+  </div><?php } ?>
+<div class="menuParam">
+  <a href="#" id="btnList" class="btnSelect">Tableau de bord</a>
+  <a href="#" id="btnSetting">Paramètres compte</a>
+
 </div>
 
-<hr>
-<div class="adminArticles">
+<hr class="hr">
+<div class="adminArticles " id="listeArticle">
   <a href="?page=articleadd" class="btn btn-primary m-1">Add Picture</a>
   <table class="table table-striped">
     <thead>
@@ -22,9 +25,9 @@
     </thead>
 
     <tbody>
-      <?php 
-      foreach ($pictures as $picture) : 
-       ?>
+      <?php
+      foreach ($pictures as $picture) :
+      ?>
         <tr>
           <th scope="row"><?= $picture['picture_id'] ?></th>
           <td><img src="<?= $picture['src'] ?>" alt="<?= $picture['title'] ?>" style="width : 100%;"></td>
@@ -43,7 +46,206 @@
   <a href="?page=articleadd" class="btn btn-primary m-1">Add Picture</a>
 </div>
 
+
+
+<div class="paramCompte" id="settingUser">
+
+  <a href="index.php?page=deconnexion" class="btn btn-danger m-1">Déconnexion</a>
+
+
+  <div class="form-control">
+    <a class="toggleForm" data-bs-toggle="collapse" href="#formPicUser">Changer photo de profil</a>
+    <form method="POST" enctype="multipart/form-data" class="collapse" id="formPicUser">
+      <hr>
+      <div class="mb-3">
+
+        <?php if (!empty($error)) {
+          echo "<p style=\"color : red;\">" . $error . "</p>";
+        } ?>
+
+        <input type="file" class="form-control" name="image_file" accept="image/*" required>
+
+      </div>
+      <input type="submit" class="form-control" id="addphoto" name="addphoto" value="Changer Photo de Profil">
+    </form>
+  </div>
+  <hr style="margin : 15px 0">
+
+  <div class="form-control">
+    <a class="toggleForm" data-bs-toggle="collapse" href="#formBanner">Changer photo de bannière</a>
+    <form method="POST" enctype="multipart/form-data" class="collapse" id="formBanner">
+      <hr>
+      <div class="mb-3">
+
+        <?php if (!empty($error)) {
+          echo "<p style=\"color : red;\">" . $error . "</p>";
+        } ?>
+
+        <input type="file" class="form-control" name="image_file" accept="image/*" required>
+
+      </div>
+      <input type="submit" class="form-control" id="addbanner" name="addbanner" value="Changer Photo de Bannière">
+    </form>
+  </div>
+  <hr style="margin : 15px 0">
+
+  <div class="form-control">
+    <a class="toggleForm" data-bs-toggle="collapse" href="#formInfoUser">Changer vos informations</a>
+    <form method="POST" class="collapse" id="formInfoUser">
+      <hr>
+
+      <div class="mb-3 ">
+        <p class="form-label">Prénom:</p>
+        <div class="formFlex">
+          <div class="form-control ">
+            <div class="infoFormUser">
+              <p class="infoInputUser"><?= $user['firstname'] ?></p>
+              <div class="collapse" id="collapseFirstname">
+                <hr>
+                <input type="text" name="firstname" class="form-control" value="<?= $user['firstname'] ?>">
+              </div>
+            </div>
+          </div>
+          <a class="form-control btnModif" data-bs-toggle="collapse" href="#collapseFirstname">Modifier</a>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <p class="form-label">Nom:</p>
+        <div class="formFlex">
+          <div class="form-control ">
+            <div class="infoFormUser">
+              <p class="infoInputUser"><?= $user['name'] ?></p>
+              <div class="collapse" id="collapseName">
+                <hr>
+                <input type="text" class="form-control" id="name" name="name" value="<?= $user['name'] ?>" required>
+              </div>
+            </div>
+          </div>
+          <a class="form-control btnModif" data-bs-toggle="collapse" href="#collapseName">Modifier</a>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <p class="form-label">Pseudo:</p>
+        <div class="formFlex">
+          <div class="form-control ">
+            <div class="infoFormUser">
+              <p class="infoInputUser"><?= $user['pseudo'] ?></p>
+              <div class="collapse" id="collapsePseudo">
+                <hr>
+                <input type="text" class="form-control" id="pseudo" name="pseudo" value="<?= $user['pseudo'] ?>" required>
+              </div>
+            </div>
+          </div>
+          <a class="form-control btnModif" data-bs-toggle="collapse" href="#collapsePseudo">Modifier</a>
+        </div>
+
+      </div>
+
+      <div class="mb-3">
+        <p class="form-label">Genre:</p>
+        <div class="formFlex">
+          <div class="form-control ">
+            <div class="infoFormUser">
+              <p class="infoInputUser"><?= $user['gender'] ?></p>
+              <div class="collapse" id="collapseGender">
+                <hr>
+                <select class="form-control" id="gender" name="gender" required>
+                  <option value="homme" <?php if ($user['gender'] === 'homme') echo 'selected'; ?>>Homme</option>
+                  <option value="femme" <?php if ($user['gender'] === 'femme') echo 'selected'; ?>>Femme</option>
+                  <option value="autres" <?php if ($user['gender'] === 'autres') echo 'selected'; ?>>Autres</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <a class="form-control btnModif" data-bs-toggle="collapse" href="#collapseGender">Modifier</a>
+        </div>
+
+      </div>
+
+      <div class="mb-3">
+        <p class="form-label">Email:</p>
+        <div class="formFlex">
+          <div class="form-control ">
+            <div class="infoFormUser">
+              <p class="infoInputUser"><?= $user['mail'] ?></p>
+              <div class="collapse" id="collapseMail">
+                <hr>
+                <input type="email" class="form-control" id="mail" name="mail" value="<?= $user['mail'] ?>" required>
+              </div>
+            </div>
+          </div>
+          <a class="form-control btnModif" data-bs-toggle="collapse" href="#collapseMail">Modifier</a>
+        </div>
+      </div>
+
+      <input type="submit" name="updateInfos" class="form-control" value="Modifier mes informations">
+    </form>
+  </div>
+
+  <hr style="margin : 15px 0">
+
+  <div class="form-control">
+    <a class="toggleForm" data-bs-toggle="collapse" href="#formPassword">Changer mot de pass</a>
+    <form method="POST" enctype="multipart/form-data" class="collapse" id="formPassword">
+      <hr>
+      <div class="mb-3">
+        <label for="actuelPassword" class="form-label">Mot de passe actuel : <span style="color : red;"><?= $errorPassOne?><?= $errorPassThree?></span></label>
+        <input type="password" name="actuelPassword" class="form-control">
+      </div>
+      <div class="mb-3">
+        <label for="newPassword" class="form-label">Nouveau mot de passe:  <span style="color : red;"><?= $errorPassTwo ?></span></label>
+        <input type="password" name="newPassword" class="form-control">
+      </div>
+      <div class="mb-3">
+        <label for="confirmPassword" class="form-label">Confirmer mot de passe:  <span style="color : red;"><?= $errorPassTwo?><?= $errorPassThree?></span></label>
+        <input type="password" name="confirmPassword" class="form-control">
+      </div>
+      <input type="submit" class="form-control" id="password" name="password" value="Changer mon mot de passe">
+    </form>
+  </div>
+
+
+</div>
+
 <script>
+  let btnList = document.querySelector('#btnList');
+  let btnSetting = document.querySelector('#btnSetting');
+  let listeArticle = document.querySelector('#listeArticle');
+  let settingUser = document.querySelector('#settingUser');
+
+  listeArticle.style.display = 'block';
+  settingUser.style.display = 'none';
+
+  btnList.addEventListener('click', () => {
+    btnList.classList.add('btnSelect');
+    btnSetting.classList.remove('btnSelect');
+    settingUser.classList.remove('transitionRight');
+    setTimeout(() => {
+      // Afficher la liste des articles
+      listeArticle.classList.remove('transitionLeft');
+      listeArticle.style.display = 'block';
+      // Masquer les paramètres utilisateur
+      settingUser.style.display = 'none';
+    }, 300);
+
+  });
+
+  btnSetting.addEventListener('click', () => {
+    listeArticle.classList.add('transitionLeft');
+    btnList.classList.remove('btnSelect');
+    btnSetting.classList.add('btnSelect');
+
+    setTimeout(() => {
+      listeArticle.style.display = 'none';
+      settingUser.classList.add('transitionRight');
+      settingUser.style.display = 'block';
+
+    }, 300);
+
+  });
+
   function deleted(id) {
     if (confirm("Êtes-vous sûr de vouloir supprimer cet article ?")) {
 

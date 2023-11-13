@@ -3,6 +3,7 @@
     align-items: center;
     justify-content: space-between;
     margin: 10px 0;
+    transition: 0.3s;
 }
 
 .userpseudo{
@@ -19,4 +20,8 @@ border-radius: 50%;
 .userfollow p{
     font-size: 19px;
     margin: 0 0 0 15px;
+}
+
+.followOption{
+    display: flex;
 }

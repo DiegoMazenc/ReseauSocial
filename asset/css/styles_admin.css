@@ -1,0 +1,128 @@
+.adminArticles, .paramCompte,.adminUsers{
+    transition: 0.3s;
+}
+
+.paramCompte, .adminUsers{
+    position: absolute;
+    transform: translateX(100px);
+    opacity: 0;
+}
+
+.transitionLeft{
+    position: absolute;
+    transform: translateX(-100px);
+    opacity: 0;
+}
+.transitionUnfollow{
+    transform: translateX(-100px);
+    opacity: 0;
+}
+
+.transitionRight{
+    position:initial;
+    transform: translateX(0px);
+    opacity: 1;
+}
+
+.menuParam{
+    position: relative;
+    margin-top: 20px;
+    transform: translateY(-2px);
+    z-index: 3;
+}
+
+.menuParam a, .btnReturn{
+    color: gray;
+    text-decoration: none;
+    padding: 10px 15px;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.btnReturn{
+    color: rgb(124, 124, 124);
+    text-decoration: none;
+    padding: 10px 15px;
+    font-size: 15px;
+    font-weight: 500;
+ opacity: 0.5;
+ transition: 0.2s;
+ 
+}
+
+.btnReturn:hover{
+    opacity: 1;
+}
+
+.btnReturn span{
+    font-weight: 900;
+    font-size: 20px;
+    border: 2px solid rgb(124, 124, 124);
+    padding: 0 8px 5px 8px;
+    border-radius: 50%;
+    margin: 0%;
+}
+
+.menuParam a:hover{
+    color: rgb(146, 204, 204);
+}
+
+.btnSelect{
+    position: relative;
+border-radius: 15px 15px 0 0;
+    background-color: rgb(255, 255, 255);
+    border: 1px rgb(199, 199, 199) solid;
+    border-bottom: 0px;
+    color: black;
+}
+
+.hr{
+    position: relative;
+    z-index: 2;
+    border-color: rgb(199, 199, 199);
+    opacity: 1;
+}
+
+.navSession{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.btnAdmin{
+    width: 70px;
+}
+
+.btnModif{
+    width: 100px;
+    height: 40px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+}
+
+.infoFormUser{
+
+    display : block;
+    align-items: center;
+    justify-content : space-between;
+}
+
+.infoInputUser{
+    margin: 0 0 0 15px;
+}
+
+.formFlex{
+    display: flex;
+}
+
+.toggleForm{
+    display: block;
+    width: 100%;
+    padding: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    border-radius: 5px;
+
+}
+

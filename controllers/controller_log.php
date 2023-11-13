@@ -35,9 +35,9 @@ if (isset($_POST['submit'])) {
         $_SESSION['admin'] = $user['admin'];
         $id = $_SESSION['id'];
 
-        $photo = Users::photoProfil($id);
+        $photo = Users::userInfos($id);
     
-        $_SESSION['photo'] = $photo['photo_src'];
+        $_SESSION['photo'] = $photo['src_photo'];
 
         header("Location: index.php?page=articlelist");
         exit;
