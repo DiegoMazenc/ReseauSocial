@@ -3,17 +3,19 @@ require_once("./models/Picture.php");
 require_once("./models/Likes.php");
 require_once("./models/Comment.php");
 require_once("./models/Users.php");
+require_once("./models/Friends.php");
 
+$id = $_GET['id'];
+$id_user = $_SESSION['id'];
+
+//Insérer Commentaire
 if (isset($_POST['valider'])) {
     $id = $_POST['id_post'];
-    $id_user = $_SESSION['id'];
     $com = $_POST['com'];
     Comment::insertComment($id, $id_user, $com);
 }
 
-
-
-
+//Insérer un Article
 if (isset($_POST['submit'])) {
 
     $error = "";
@@ -48,42 +50,33 @@ if (isset($_POST['submit'])) {
     }
 }
 
-
-
-
+//Supprimer un commentaire
 if (isset($_POST['supprimer'])) {
     $comment_id = $_POST['comment_id'];
     Comment::deleteComment($comment_id);
 }
 
+//Follow un utilisateur
 if (isset($_POST['follow'])) {
     $id_sender = $_SESSION['id'];
     $id_receiver = $_POST['id_follow'];
-
-    $db = connectDB();
-    $sql = $db->prepare('INSERT INTO friends (id_user,id_follow) VALUES(?,?)');
-    $sql->execute([$id_sender , $id_receiver]);
+    Friends::insertFriend($id_sender, $id_receiver);
 }
 
+//Unfollow un utilisateur
 if (isset($_POST['unfollow'])) {
     $id_sender = $_SESSION['id'];
     $id_receiver = $_POST['id_follow'];
-
-    $db = connectDB();
-    $sql = $db->prepare('DELETE FROM friends WHERE id_user=? AND id_follow=?');
-    $sql->execute([$id_sender , $id_receiver]);
+    Friends::deleteFriend($id_sender, $id_receiver);
 }
 
-    $db = connectDB();
-    $id_user = $_SESSION['id'];
-    $id = $_GET['id'];
-    $sql = $db->prepare("SELECT * FROM friends WHERE id_user =$id_user AND id_follow=$id ");
-    $sql->execute();
-    $friends = $sql->fetch(PDO::FETCH_ASSOC);
+//Récupérer la liste de follower
+$friends = Friends::getAllFriends($id_user, $id);
 
-
-$id = $_GET['id'];
+//Récupérer la liste des articles de l'user
 $pictures = Picture::getUserArticle($id);
+
+//Récupérer les informations d'utilisateur
 $photo = Users::userInfos($id);
 
 include "./views/layout.phtml";

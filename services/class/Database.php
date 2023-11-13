@@ -61,4 +61,10 @@ class Database
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         return $result;
     }
+
+    public function actionDB($statement,$params=[]){
+        $stmt = $this->getPDO()->prepare($statement);
+        $stmt->execute($params);
+        
+    }
 }

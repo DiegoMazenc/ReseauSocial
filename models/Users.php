@@ -7,19 +7,15 @@ class Users
     //====LOG====\\
     public static function usersList()
     {
-        $db = connectDB();
-        $sql = $db->prepare('SELECT * FROM users');
-        $sql->execute();
-        $users = $sql->fetchAll(PDO::FETCH_ASSOC);
+        $db = new Database();
+        $users =  $db->selectAll('SELECT * FROM users');
         return $users;
     }
 
     public static function userInfos($id)
     {
-        $db = connectDB();
-        $sql = $db->prepare('SELECT * FROM users WHERE id=?');
-        $sql->execute([$id]);
-        $users = $sql->fetch(PDO::FETCH_ASSOC);
+        $db = new Database();
+        $users =  $db->selectOne('SELECT * FROM users WHERE id=?',[$id]);
         return $users;
     }
 
@@ -27,9 +23,8 @@ class Users
     //Inscription
     public static function inscription($firstname, $name, $pseudo, $gender, $mail, $hash)
     {
-        $db = connectDB();
-        $sql = $db->prepare('INSERT INTO users (firstname,name,pseudo,gender,mail,password) VALUES(?,?,?,?,?,?)');
-        $sql->execute([$firstname, $name, $pseudo, $gender, $mail, $hash]);
+        $db = new Database();
+        $db->actionDB('INSERT INTO users (firstname,name,pseudo,gender,mail,password) VALUES(?,?,?,?,?,?)',[$firstname, $name, $pseudo, $gender, $mail, $hash]);
         return true;
     }
 
