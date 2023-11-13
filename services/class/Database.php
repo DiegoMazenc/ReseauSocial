@@ -17,7 +17,7 @@ class Database
 
     public function __construct(
         $db_host = 'localhost',
-        $db_name = 'my_mvc_bdd2',
+        $db_name = 'my_mvc_bdd',
         $db_port = '3306',
         $db_user = 'root',
         $db_pass = ''
