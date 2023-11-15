@@ -234,7 +234,7 @@
       let pictureId = form.data('picture-id');
       let commentText = form.find('textarea[name="com"]').val();
 
-
+      form.find('textarea[name="com"]').val('Recharger la page pour voir le commentaire (rendu dynamique en cours de programmation)');
 
       console.log(pictureId);
       console.log(commentText);
@@ -250,7 +250,7 @@
         success: function(response) {
           console.log(response);
           if (response.success) {
-            form.find('textarea[name="com"]').val('');
+           
           }
 
         }
