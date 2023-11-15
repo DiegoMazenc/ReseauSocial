@@ -5,7 +5,7 @@ if(isset($_GET['id'])){
     $id = $_GET['id'];
     $actif = 'non';
     Picture::deletePicture($actif, $id);
-    header('Location: index.php?page=home'); 
+    header('Location: index.php?page=articlelist'); 
     exit();
 }
 

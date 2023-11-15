@@ -1,7 +1,6 @@
 <?php
 require_once("./services/database.php");
 require_once("./services/class/Database.php");
-$db = new Database();
 
 class Friends
 {

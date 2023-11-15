@@ -39,7 +39,7 @@ if (isset($_POST['submit'])) {
     
         $_SESSION['photo'] = $photo['src_photo'];
 
-        header("Location: index.php?page=articlelist");
+        header("Location: index.php?page=home");
         exit;
     } else {
         $alertConnect = "Utilisateur non trouvé ou mot de passe incorrect";

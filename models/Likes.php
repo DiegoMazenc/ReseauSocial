@@ -19,10 +19,8 @@ class Likes
     //compteur Unlike
     public static function cntUnlikes($id)
     {
-        $db = connectDB();
-        $sql = $db->prepare('SELECT * FROM likes WHERE id_user = ? AND id_picture = ?');
-        $sql->execute(array($_SESSION['id'], $id));
-        $unlike = $sql->fetch(PDO::FETCH_ASSOC);
+        $db = new Database();
+        $unlike =  $db->selectOne("SELECT * FROM likes WHERE id_user = ? AND id_picture = ?",[$_SESSION['id'], $id]);
         return $unlike;
     }
 
@@ -43,4 +41,21 @@ class Likes
         $sql->execute(array($id_picture, $id_user));
         return true;
     }
+
+    //NE FONCTIONNE PAS SOUS CETTE SYNTAXE ???
+    // //Insert Like
+    // public static function insertLike($id_picture, $id_user)
+    // {
+    //     $db = new Database();
+    //     $db->actionDB("INSERT INTO likes (id_picture,id_user)  VALUES(?,?)",[$id_picture, $id_user]);
+    //     return true;
+    // }
+
+    // //Delete Like
+    // public static function deleteLike($id_picture, $id_user)
+    // {
+    //     $db = new Database();
+    //     $db->actionDB( "DELETE FROM likes WHERE id_picture=? AND id_user=?",[$id_picture, $id_user]);
+    //     return true;
+    // }
 }

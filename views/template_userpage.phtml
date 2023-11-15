@@ -97,9 +97,9 @@
         <p class="datePhotos"><?= date_format(date_create($picture['created_at']), "d M Y")  ?></p>
       </div>
       <hr>
-      <a href="?page=article&id=<?= $picture['id'] ?>">
+      
         <img src="<?= $picture['src'] ?>" alt="<?= $picture['title'] ?>" class="imgArticle">
-      </a>
+      
       <p class="titrePhoto"><?= $picture['title'] ?></p>
       <p class="descritpionPhoto"><?= $picture['description'] ?></p>
 

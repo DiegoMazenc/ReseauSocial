@@ -56,19 +56,15 @@ class comment
 
     public static function insertComment($id_picture, $id_user, $comment_text)
     {
-        $db = connectDB();
-        $sql = $db->prepare('INSERT INTO comment (id_picture,id_user,com) VALUES(?,?,?)');
-    
-        $sql->execute(array($id_picture, $id_user, $comment_text));
+        $db = new Database();
+        $db->actionDB('INSERT INTO comment (id_picture,id_user,com) VALUES(?,?,?)',[$id_picture, $id_user, $comment_text]);
         return true;
     }
 
     public static function deleteComment($comment_id)
     {
-        $db = connectDB();
-        $sql = $db->prepare("DELETE FROM comment WHERE id = ?");
-        $sql->execute([$comment_id]);
-
+        $db = new Database();
+        $db->actionDB("DELETE FROM comment WHERE id = ?",[$comment_id]);
         return true;
     }
 }

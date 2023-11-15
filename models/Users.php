@@ -1,7 +1,7 @@
 <?php
 
-require_once("./services/database.php");
-
+require_once("./services/class/Database.php");
+$db = new Database();
 class Users
 {
     //====LOG====\\
@@ -31,21 +31,16 @@ class Users
     //Connexion
     public static function connexionPseudo($pseudo)
     {
-        $db = connectDB();
-
-        $sql = $db->prepare('SELECT * FROM users WHERE pseudo = ?');
-        $sql->execute([$pseudo]);
-        $user = $sql->fetch(PDO::FETCH_ASSOC);
+        $db = new Database();
+        $user = $db->selectOne('SELECT * FROM users WHERE pseudo = ?',[$pseudo]);
         return $user;
     }
 
     //Photo USER
     public static function photoProfil($id)
     {
-        $db = connectDB();
-        $sql = $db->prepare("SELECT *, photo.src AS photo_src, users.pseudo AS user_pseudo, users.id AS user_id FROM users INNER JOIN photo ON photo.id = users.id_photo WHERE users.id=$id");
-        $sql->execute();
-        $photo = $sql->fetch(PDO::FETCH_ASSOC);
+        $db = new Database();
+        $photo = $db->selectAll('SELECT *, photo.src AS photo_src, users.pseudo AS user_pseudo, users.id AS user_id FROM users INNER JOIN photo ON photo.id = users.id_photo WHERE users.id=?',[$id]);
         return $photo;
     }
 
@@ -54,27 +49,22 @@ class Users
     //charger info User
     public static function getUser($id)
     {
-        $db = connectDB();
-        $sql = $db->prepare("SELECT * FROM users WHERE id = $id ");
-        $sql->execute();
-        $user = $sql->fetch(PDO::FETCH_ASSOC);
+        $db = new Database();
+        $user = $db->selectAll('SELECT * FROM users WHERE id = ? ',[$id]);
         return $user;
     }
 
     public static function updateUser($new_firstname, $new_name, $new_pseudo, $new_gender, $new_mail , $id)
     {
-        $db = connectDB();
-        $sql = $db->prepare("UPDATE users SET firstname=?, name=?, pseudo=?, gender=?, mail=? WHERE id = ?");
-        $sql->execute(array($new_firstname, $new_name, $new_pseudo, $new_gender, $new_mail , $id));
+        $db = new Database();
+        $db->actionDB("UPDATE users SET firstname=?, name=?, pseudo=?, gender=?, mail=? WHERE id = ?",[$new_firstname, $new_name, $new_pseudo, $new_gender, $new_mail , $id]);
         return true;
     }
 
     public static function updateAdmin($admin,$id)
     {
-        $db = connectDB();
-        $sql = $db->prepare("UPDATE users SET admin=? WHERE id =? ");
-        $sql->execute([$admin,$id]);
-        $user = $sql->fetch(PDO::FETCH_ASSOC);
-        return $user;
+        $db = new Database();
+        $db->actionDB("UPDATE users SET admin=? WHERE id =? ",[$admin,$id]);
+        return true;
     }
 }
