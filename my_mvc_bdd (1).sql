@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : dim. 12 nov. 2023 à 17:15
--- Version du serveur : 8.0.31
--- Version de PHP : 8.0.26
+-- Généré le :  mer. 15 nov. 2023 à 14:42
+-- Version du serveur :  10.4.10-MariaDB
+-- Version de PHP :  7.3.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -18,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `my_mvc_bdd`
+-- Base de données :  `my_mvc_bdd`
 --
 
 -- --------------------------------------------------------
@@ -29,15 +30,15 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `comment`;
 CREATE TABLE IF NOT EXISTS `comment` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `id_picture` int NOT NULL,
-  `id_user` int NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_picture` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
   `com` text NOT NULL,
-  `date_com` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `date_com` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `ForeignKey_CommentIdPicture_PictureId` (`id_picture`),
   KEY `FK_commentIdUser_UsersId` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=196 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=213 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `comment`
@@ -64,7 +65,6 @@ INSERT INTO `comment` (`id`, `id_picture`, `id_user`, `com`, `date_com`) VALUES
 (86, 7, 2, 'hello', '2023-11-09 11:39:46'),
 (88, 8, 2, 'hey', '2023-11-09 12:29:21'),
 (90, 9, 2, 'bye bye', '2023-11-09 15:23:32'),
-(91, 32, 2, 'coucou', '2023-11-10 09:47:39'),
 (92, 35, 3, 'Game !', '2023-11-10 10:37:42'),
 (93, 32, 3, 'gfdsdfgfd', '2023-11-10 11:36:14'),
 (94, 9, 3, 'hello', '2023-11-10 11:43:00'),
@@ -88,7 +88,19 @@ INSERT INTO `comment` (`id`, `id_picture`, `id_user`, `com`, `date_com`) VALUES
 (148, 35, 3, 'hemoiu', '2023-11-10 13:37:14'),
 (150, 38, 27, 'nice', '2023-11-11 17:55:18'),
 (151, 34, 27, 'cute', '2023-11-11 21:56:41'),
-(152, 41, 27, 'les chevaliers du zodiahahkeuh', '2023-11-11 21:57:15');
+(152, 41, 27, 'les chevaliers du zodiahahkeuh', '2023-11-11 21:57:15'),
+(196, 40, 2, 'hello', '2023-11-13 08:14:48'),
+(198, 35, 2, '', '2023-11-13 09:03:42'),
+(200, 41, 2, 'hello', '2023-11-15 09:13:35'),
+(201, 44, 2, 'gfgfgfg', '2023-11-15 11:17:45'),
+(202, 44, 2, 'gfgfgfg', '2023-11-15 11:17:47'),
+(203, 44, 2, 'fd', '2023-11-15 11:17:53'),
+(204, 44, 2, 'vcvc', '2023-11-15 11:18:00'),
+(206, 41, 2, 'dsdsds', '2023-11-15 11:44:03'),
+(209, 34, 2, 'coucou', '2023-11-15 11:45:34'),
+(210, 34, 2, 'hello', '2023-11-15 11:46:08'),
+(211, 34, 2, 'hey', '2023-11-15 11:46:44'),
+(212, 41, 2, 'pouet', '2023-11-15 11:47:56');
 
 -- --------------------------------------------------------
 
@@ -98,12 +110,12 @@ INSERT INTO `comment` (`id`, `id_picture`, `id_user`, `com`, `date_com`) VALUES
 
 DROP TABLE IF EXISTS `friends`;
 CREATE TABLE IF NOT EXISTS `friends` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `id_user` int NOT NULL,
-  `id_follow` int NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_user` int(11) NOT NULL,
+  `id_follow` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_FriendsIdFollow_UsersIdUsers` (`id_follow`)
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `friends`
@@ -111,11 +123,10 @@ CREATE TABLE IF NOT EXISTS `friends` (
 
 INSERT INTO `friends` (`id`, `id_user`, `id_follow`) VALUES
 (1, 2, 3),
-(10, 2, 26),
-(13, 2, 4),
 (43, 27, 7),
 (44, 27, 6),
-(45, 27, 5);
+(45, 27, 5),
+(88, 2, 6);
 
 -- --------------------------------------------------------
 
@@ -125,13 +136,13 @@ INSERT INTO `friends` (`id`, `id_user`, `id_follow`) VALUES
 
 DROP TABLE IF EXISTS `likes`;
 CREATE TABLE IF NOT EXISTS `likes` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `id_picture` int NOT NULL,
-  `id_user` int NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_picture` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_LikesIdPicture_PictureId` (`id_picture`),
   KEY `id_user` (`id_user`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=231 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=242 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `likes`
@@ -148,7 +159,6 @@ INSERT INTO `likes` (`id`, `id_picture`, `id_user`) VALUES
 (85, 30, 2),
 (88, 16, 26),
 (90, 32, 26),
-(160, 23, 2),
 (161, 9, 2),
 (168, 2, 2),
 (169, 3, 2),
@@ -175,7 +185,11 @@ INSERT INTO `likes` (`id`, `id_picture`, `id_user`) VALUES
 (226, 9, 27),
 (227, 8, 27),
 (229, 39, 27),
-(230, 35, 27);
+(230, 35, 27),
+(231, 23, 2),
+(238, 42, 2),
+(240, 34, 2),
+(241, 44, 2);
 
 -- --------------------------------------------------------
 
@@ -185,8 +199,8 @@ INSERT INTO `likes` (`id`, `id_picture`, `id_user`) VALUES
 
 DROP TABLE IF EXISTS `photo`;
 CREATE TABLE IF NOT EXISTS `photo` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `id_user` int NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id_user` int(11) NOT NULL,
   `src` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_PhotoIdUser_usersId` (`id_user`)
@@ -212,17 +226,17 @@ INSERT INTO `photo` (`id`, `id_user`, `src`) VALUES
 
 DROP TABLE IF EXISTS `picture`;
 CREATE TABLE IF NOT EXISTS `picture` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `actif` varchar(80) NOT NULL DEFAULT 'oui',
-  `id_user` int NOT NULL,
+  `id_user` int(11) NOT NULL,
   `src` varchar(255) NOT NULL,
   `title` varchar(100) NOT NULL,
   `description` text NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `FK_pictureIdUser_userId` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `picture`
@@ -247,14 +261,33 @@ INSERT INTO `picture` (`id`, `actif`, `id_user`, `src`, `title`, `description`, 
 (31, 'non', 2, './uploads/Didi1699538188.png', 'fghgfd', 'hgfdsdfg', '2023-11-09 13:56:56', '2023-11-09 13:56:28'),
 (32, 'oui', 26, './uploads/Mi-laine1699538714.jpeg', 'Albert', 'Albert le dev', '2023-11-09 14:05:14', '2023-11-09 14:05:14'),
 (33, 'non', 3, './uploads/Wiwi1699539525.jpeg', 'gfdsqsdf', 'gfdsqdfg', '2023-11-09 14:19:32', '2023-11-09 14:18:45'),
-(34, 'oui', 2, 'https://media.tenor.com/MYL0JUb9bYMAAAAC/adventure-time-gunter.gif', 'Les Glaciaires Aventures de Gunther: Les Secrets des Terres Gelées d\'Ooo', 'Salut les p\'tits pingouins et amateurs d\'aventures glacées ! C\'est moi, Gunther, votre guide imperturbable à travers les terres gelées d\'Ooo. Aujourd\'hui, je vous emmène dans un voyage palpitant au cœur des mystères des régions glacées. Préparez-vous à glisser sur la glace et à plonger dans le frisson de l\'inconnu !\r\n\r\nLa Vie Polaire:\r\n\r\nBienvenue dans le monde de la banquise, où les glaçons brillent comme des diamants et où la neige crisse sous nos pattes. C\'est là que je mène ma vie quotidienne, jonglant entre les igloos et les crevasses de glace. Vous seriez surpris de voir à quel point une petite créature comme moi peut déchaîner tant d\'aventures !\r\n\r\nLes Compagnons de Glace:\r\n\r\nOoo regorge de créatures gelées étranges et merveilleuses. Rencontrez les flocons magiques, des êtres délicats qui dansent dans le vent glacial, ou les géants de glace qui veillent silencieusement sur leurs domaines gelés. Mes amis et moi, nous nous aventurons souvent à travers ces terres hostiles, découvrant des secrets gelés que même le Roi des Glaces pourrait envier.\r\n\r\nL\'Étrange Art de la Glace:\r\n\r\nLa glace est bien plus qu\'un simple bloc froid. C\'est un moyen d\'expression ! Les sculptures de glace rivalisent avec les plus grandes œuvres d\'art, et chaque bloc de glace est une toile pour les artistes de la région. Certains disent que même le regard perçant d\'un pingouin peut donner vie à une sculpture.\r\n\r\nLes Légendes Gelées:\r\n\r\nSaviez-vous que les terres gelées d\'Ooo regorgent de légendes mystiques ? On dit qu\'un trésor glacé est caché quelque part, attendant d\'être découvert par le pingouin le plus courageux. Et puis il y a la légende du Cœur Gelé, une source de pouvoir magique qui peut geler même le feu le plus ardent. Mes amis et moi, nous partons souvent à la recherche de ces mystères glacés, prêts à affronter le froid pour percer les secrets de la glace.\r\n\r\nConseils de Survie Glacée:\r\n\r\nSi vous décidez de vous aventurer dans les terres gelées d\'Ooo, n\'oubliez pas de porter une fourrure bien chaude et des patins aiguisés. La glace peut être aussi traîtresse que le Roi des Glaces lorsqu\'il perd son diadème. De plus, gardez toujours quelques poissons séchés dans votre sac à dos – on ne sait jamais quand une pause déjeuner glacée sera nécessaire !\r\n\r\nAlors voilà, mes amis, la vie gelée est une aventure continue. Que vous soyez un pingouin, un humain ou même une licorne, il y a toujours quelque chose de froid et de fantastique à découvrir dans les régions gelées d\'Ooo. Alors, enfilez vos bonnets et vos écharpes, et rejoignez-moi pour une expédition glaciaire que vous n\'oublierez jamais ! Ice, Ice, Baby ! ????', '2023-11-11 02:47:05', '2023-11-11 02:47:05'),
+(34, 'oui', 2, 'https://media.tenor.com/MYL0JUb9bYMAAAAC/adventure-time-gunter.gif', ' Les Secrets des Terres Gelées d\'Ooo', 'Salut les p\'tits pingouins et amateurs d\'aventures glacées ! C\'est moi, Gunther, votre guide imperturbable à travers les terres gelées d\'Ooo. Aujourd\'hui, je vous emmène dans un voyage palpitant au cœur des mystères des régions glacées. Préparez-vous à glisser sur la glace et à plonger dans le frisson de l\'inconnu !\r\n', '2023-11-15 11:48:46', '2023-11-15 11:48:46'),
 (35, 'oui', 27, './uploads/biboule deneigeHaiku php engagé1699671485.jpeg', 'Haiku php engagé', 'Code en lambeaux flotte,\r\nPHP pleure dans mes scripts,\r\nDéveloppeur honteux.', '2023-11-11 02:58:05', '2023-11-11 02:58:05'),
 (36, 'non', 2, '', '', '', '2023-11-11 20:36:27', '2023-11-11 20:36:09'),
 (37, 'non', 27, 'https://media.tenor.com/MYL0JUb9bYMAAAAC/adventure-time-gunter.gif', 'SDFGH', 'DFGHN', '2023-11-11 21:52:56', '2023-11-11 12:26:23'),
 (38, 'non', 27, './uploads/biboule deneigeSDFDSQSDF1699705679.jpeg', 'SDFDSQSDF', 'FDSQSDFGFDS', '2023-11-11 21:53:01', '2023-11-11 12:27:59'),
 (39, 'oui', 5, './uploads/Mc ManuTraverser la rue1699738728.jpeg', 'Traverser la rue', 'Comme quoi on peut traverser la rue et trouver plus que du travail, on peut trouver aussi la gloire lol', '2023-11-11 21:38:48', '2023-11-11 21:38:48'),
-(40, 'oui', 6, './uploads/MartinoBonsoir à tous1699739053.jpeg', 'Bonsoir à tous', 'Enfin un nouveau site trop cool pour faire valoir mon fétichisme de cheval moche', '2023-11-11 21:44:13', '2023-11-11 21:44:13'),
-(41, 'oui', 7, './uploads/BébertBientot dans ton PMU1699739301.jpeg', 'Bientot dans ton PMU', 't\'aime les moshpit ? Alors vient au PMU du village de jeuvieille-la-souche pour pogoter avec les pilier de bar', '2023-11-11 21:48:21', '2023-11-11 21:48:21');
+(40, 'oui', 6, './uploads/MartinoBonsoir à tous1699739053.jpeg', 'Bonsoir à tous', 'Enfin un nouveau site trop cool pour faire valoir ma collection de photos de cheval moche', '2023-11-15 09:06:08', '2023-11-15 09:06:08'),
+(41, 'oui', 7, './uploads/BébertBientot dans ton PMU1699739301.jpeg', 'Bientot dans ton PMU', 't\'aime les moshpit ? Alors vient au PMU du village de jeuvieille-la-souche pour pogoter avec les pilier de bar', '2023-11-11 21:48:21', '2023-11-11 21:48:21'),
+(42, 'non', 2, './uploads/DidiUltimate Battle bros1700035739.png', 'Ultimate Battle bros', 'Bientot dans vos boutiques', '2023-11-15 09:08:08', '2023-11-15 08:08:59'),
+(43, 'non', 2, './uploads/Didifdsdf1700036970.png', 'fdsdf', 'fdsdf', '2023-11-15 08:29:44', '2023-11-15 08:29:30'),
+(44, 'non', 2, './uploads/Didiphoto test1700046703.png', 'photo test', 'coucou', '2023-11-15 11:18:55', '2023-11-15 11:11:43');
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `user`
+--
+
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE IF NOT EXISTS `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `roles` int(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -264,34 +297,36 @@ INSERT INTO `picture` (`id`, `actif`, `id_user`, `src`, `title`, `description`, 
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `admin` int DEFAULT '0',
-  `id_photo` int DEFAULT '3',
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `admin` int(11) DEFAULT 0,
+  `id_photo` int(11) DEFAULT 3,
   `firstname` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `pseudo` varchar(255) NOT NULL,
   `gender` varchar(50) NOT NULL,
   `mail` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `src_photo` text,
-  `date_create` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `src_photo` text DEFAULT NULL,
+  `src_banner` text DEFAULT NULL,
+  `date_create` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `FK_UsersIdPhoto_PhotoId` (`id_photo`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `users`
 --
 
-INSERT INTO `users` (`id`, `admin`, `id_photo`, `firstname`, `name`, `pseudo`, `gender`, `mail`, `password`, `src_photo`, `date_create`) VALUES
-(2, 1, 3, 'Diégo', 'Mazenc', 'Didi', 'homme', 'diego.mazenc@gmail.com', '$2y$10$GRCfJxO3uZxGqFnKKsT95OQ9wO4DCsvLP4NLu5PKu6HZwQP1Wi1qy', './uploads/Didi2profilpic1699738193.jpeg', '2023-11-02 13:17:07'),
-(3, 0, 4, 'Will', 'Smith', 'Wiwi', 'homme', 'willsmith@gmail.com', '$2y$10$LVv/MGziT/bxbMsjfw5i9uyHiPCdvJv8biTbjmfE9O/pIy7/XCvHK', './uploads/Wiwi3profilpic1699738357.jpeg', '2023-11-02 14:21:30'),
-(4, 0, 5, 'Jean-Luc', 'Mélenchon', 'JL-mel', 'homme', 'jlmech@mail.fr', '$2y$10$EZQ.8J9lcB/AH7rzhR1D7OxEdB5kZz1XGnqirdkzsH6SUA1lq6IqK', './uploads/JL-mel4profilpic1699738459.jpeg', '2023-11-02 14:23:04'),
-(5, 0, 6, 'Emmanuel', 'Macaron', 'Mc Manu', 'autres', 'macrondu91@gmail.com', '$2y$10$v6rRJW/hVgVshejDitx/WeYgkQtnhLYGmtBP/XCKrIZCFF9PpaXWK', './uploads/Mc Manu5profilpic1699738550.jpeg', '2023-11-03 09:32:36'),
-(6, 0, 7, 'François', 'Martin', 'Martino', 'homme', 'francoismartin@gmail.com', '$2y$10$/PJJzRzvCzbmTLQrDGda/evdUy6zXpMuOxiSr3iDvpPDXzy/k9m4K', './uploads/Martino6profilpic1699738940.jpeg', '2023-11-03 09:40:06'),
-(7, 0, 3, 'Bernard', 'Minet', 'Bébert', 'homme', 'clubernard@mail.fr', '$2y$10$EHsTxsbt5TGEwDOaY0cRke36hfxFhqI7Xqa.ZChCVInS6NgjwXLki', './uploads/Bébert7profilpic1699739170.jpeg', '2023-11-03 11:02:30'),
-(26, 1, 3, 'Mylène', 'Farmer', 'Mi-laine', 'autres', 'farmer@mail.fr', '$2y$10$.cgWczKdzXnWlix8z6kIeOwUSYlNS282fQQF7iiw5R1TjNI4HR8s.', './uploads/Mi-laine26profilpic1699739467.jpeg', '2023-11-08 09:55:20'),
-(27, 1, 7, 'BIbi', 'deneige', 'Bébouh', 'autres', 'contact.sabrinaa@gmail.com', '$2y$10$GBJx.rvdjTVfh/iidvw16uVceTos.0PtIbx3vhqh4.3AXfnUlILD2', './uploads/Bébouh27profilpic1699739531.jpeg', '2023-11-11 03:51:02');
+INSERT INTO `users` (`id`, `admin`, `id_photo`, `firstname`, `name`, `pseudo`, `gender`, `mail`, `password`, `src_photo`, `src_banner`, `date_create`) VALUES
+(2, 1, 3, 'Diégo', 'Mazenc', 'Didi', 'homme', 'diego.mazenc@gmail.com', '$2y$10$v11UEBcQwaNHHGOoQ6LOPuuE8Gb8Adyg5Ew3dVy1o8Wm2YIRdvxP2', './uploads/Didi2profilpic1700039115.png', './uploads/Didi2bannerpic1700049034.jpeg', '2023-11-02 13:17:07'),
+(3, 0, 4, 'Will', 'Smith', 'Wiwi', 'homme', 'willsmith@gmail.com', '$2y$10$LVv/MGziT/bxbMsjfw5i9uyHiPCdvJv8biTbjmfE9O/pIy7/XCvHK', './uploads/Wiwi3profilpic1699738357.jpeg', NULL, '2023-11-02 14:21:30'),
+(4, 0, 5, 'Jean-Luc', 'Mélenchon', 'JL-mel', 'homme', 'jlmech@mail.fr', '$2y$10$EZQ.8J9lcB/AH7rzhR1D7OxEdB5kZz1XGnqirdkzsH6SUA1lq6IqK', './uploads/JL-mel4profilpic1699738459.jpeg', NULL, '2023-11-02 14:23:04'),
+(5, 0, 6, 'Emmanuel', 'Macaron', 'Mc Manu', 'autres', 'macrondu91@gmail.com', '$2y$10$v6rRJW/hVgVshejDitx/WeYgkQtnhLYGmtBP/XCKrIZCFF9PpaXWK', './uploads/Mc Manu5profilpic1699738550.jpeg', NULL, '2023-11-03 09:32:36'),
+(6, 0, 7, 'François', 'Martin', 'Martino', 'homme', 'francoismartin@gmail.com', '$2y$10$/PJJzRzvCzbmTLQrDGda/evdUy6zXpMuOxiSr3iDvpPDXzy/k9m4K', './uploads/Martino6profilpic1699738940.jpeg', NULL, '2023-11-03 09:40:06'),
+(7, 0, 3, 'Bernard', 'Minet', 'Bébert', 'homme', 'clubernard@mail.fr', '$2y$10$EHsTxsbt5TGEwDOaY0cRke36hfxFhqI7Xqa.ZChCVInS6NgjwXLki', './uploads/Bébert7profilpic1699739170.jpeg', NULL, '2023-11-03 11:02:30'),
+(26, 1, 3, 'Mylène', 'Farmer', 'Mi-laine', 'autres', 'farmer@mail.fr', '$2y$10$.cgWczKdzXnWlix8z6kIeOwUSYlNS282fQQF7iiw5R1TjNI4HR8s.', './uploads/Mi-laine26profilpic1699739467.jpeg', NULL, '2023-11-08 09:55:20'),
+(27, 1, 7, 'BIbi', 'deneige', 'Bébouh', 'autres', 'contact.sabrinaa@gmail.com', '$2y$10$GBJx.rvdjTVfh/iidvw16uVceTos.0PtIbx3vhqh4.3AXfnUlILD2', './uploads/Bébouh27profilpic1699739531.jpeg', NULL, '2023-11-11 03:51:02'),
+(28, 0, 3, 'Mickeal', 'Jackson', 'Mika', 'homme', 'jackson@mail.com', '$2y$10$g72B6tbdTAj4Uei/RPsg1O/hLT7h46rytbVeuVqx/BpI3Q7JA/10q', NULL, NULL, '2023-11-15 08:23:17');
 
 --
 -- Contraintes pour les tables déchargées
@@ -301,7 +336,7 @@ INSERT INTO `users` (`id`, `admin`, `id_photo`, `firstname`, `name`, `pseudo`, `
 -- Contraintes pour la table `photo`
 --
 ALTER TABLE `photo`
-  ADD CONSTRAINT `FK_PhotoIdUser_usersId` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `FK_PhotoIdUser_usersId` FOREIGN KEY (`id_user`) REFERENCES `users` (`id`);
 
 --
 -- Contraintes pour la table `picture`
