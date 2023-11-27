@@ -1,3 +1,9 @@
+<?php if (!isset($_SESSION['id'])){ 
+  header("Location: index.php?page=log")
+  ?>
+
+  <?php } else {?>
+    
 <div class="header">
   <div class="banniereUser">
     <div class="imgbanniere">
@@ -91,7 +97,10 @@
     <div class="photo">
       <div class="userInfo">
         <div class="userName">
-          <img src="<?= $picture['user_photo']; ?>" alt="" class="imgUser">
+        <div class="blocPhotoUserArticle">
+        <img src="<?= $picture['user_photo']; ?>" alt="">
+      </div>
+          
           <p><?= $picture['user_pseudo']; ?></p>
         </div>
         <p class="datePhotos"><?= date_format(date_create($picture['created_at']), "d M Y")  ?></p>
@@ -188,7 +197,7 @@
     </div>
   <?php endforeach; ?>
 </div>
-
+<?php } ?>
 
 
 <script>

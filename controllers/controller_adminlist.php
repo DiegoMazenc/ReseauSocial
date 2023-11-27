@@ -13,7 +13,7 @@ if(isset($_POST['isAdmin'])){
     $admin = $_POST['admin'];
 
     Users::updateAdmin($admin,$id);
-    header('Location: index.php?page=adminusers'); 
+    header('Location: index.php?page=adminlist'); 
 }
 
 

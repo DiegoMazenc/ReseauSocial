@@ -1,3 +1,9 @@
+<?php if (!isset($_SESSION['id'])){ 
+  header("Location: index.php?page=log")
+  ?>
+
+  <?php } else {?>
+
 <?php if ((int)$_SESSION['admin'] === 1) { ?><div class="navSession"><?php } ?>
   <a href="index.php?page=userpage&id=<?= $_SESSION['id']; ?>" class="btnReturn"><span><</span> Ma Page</a>
   <?php if ((int)$_SESSION['admin'] === 1) { ?>
@@ -6,7 +12,7 @@
   </div><?php } ?>
 <div class="menuParam">
   <a href="#" id="btnList" class="btnSelect">Tableau de bord</a>
-  <a href="#" id="btnSetting">Paramètres compte</a>
+  <a href="#settingUser" id="btnSetting">Paramètres compte</a>
 
 </div>
 
@@ -188,7 +194,7 @@
   <hr style="margin : 15px 0">
 
   <div class="form-control">
-    <a class="toggleForm" data-bs-toggle="collapse" href="#formPassword">Changer mot de pass</a>
+    <a class="toggleForm" data-bs-toggle="collapse" href="#formPassword">Changer mot de passe</a>
     <form method="POST" enctype="multipart/form-data" class="collapse" id="formPassword">
       <hr>
       <div class="mb-3">
@@ -209,7 +215,7 @@
 
 
 </div>
-
+<?php } ?>
 <script>
   let btnList = document.querySelector('#btnList');
   let btnSetting = document.querySelector('#btnSetting');

@@ -1,3 +1,9 @@
+<?php if (!isset($_SESSION['id'])){ 
+  header("Location: index.php?page=log")
+  ?>
+
+  <?php } else {?>
+
 <h1 style="margin-top:80px; text-align:center">Admin Add Picture</h1>
 <form style="margin:5%" method="POST">
     <div class="mb-3">
@@ -17,3 +23,4 @@
 
 </form>
 
+<?php } ?>

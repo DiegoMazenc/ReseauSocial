@@ -43,7 +43,7 @@
 }
 
 .homeContent{
-    margin-top: 55px;
+    /* margin-top: 55px; */
     display: grid;
     grid-template-columns: 250px 3fr;
 }
@@ -77,6 +77,12 @@ margin:0 10px;
 
 }
 
+.flexUser{
+    display: flex;
+    align-items: center;
+    
+}
+
 .navSet li:hover{
 background-color: rgb(136, 169, 172);
 }
@@ -107,7 +113,7 @@ background-color: rgb(136, 169, 172);
     background-color: rgba(255, 255, 255, 0);
 }
 
-.likeBtn, .follow:hover{
+.likeBtn:hover, .follow:hover{
     background-color: #69a1a331;
 }
 
@@ -140,9 +146,39 @@ background-color: rgb(136, 169, 172);
     padding-left: 10px;
 }
 
-.userName a{
+.pseudoLink{
     text-decoration: none;
     color: gray;
     font-weight: 600;
 }
 
+.pagination {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.pagination ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+}
+
+.pagination li {
+    margin: 0 5px;
+    display: inline-block;
+}
+
+.pagination a {
+    text-decoration: none;
+    padding: 2.5px 5px;
+    border: 1px solid #ccc;
+    color: #333;
+    background-color: #fff;
+    font-size: 14px;
+}
+
+.pagination a:hover {
+    background-color: #eee;
+}

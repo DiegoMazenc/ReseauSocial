@@ -28,6 +28,26 @@ class Users
         return true;
     }
 
+    public static function cntMail($mail)
+{
+    $db = connectDB();
+    $sql = $db->prepare("SELECT * FROM users WHERE mail = :mail");
+    $sql->bindParam(':mail', $mail);
+    $sql->execute();
+    $nbrMail = $sql->rowCount();
+    return $nbrMail;
+}
+
+public static function cntPseudo($pseudo)
+{
+    $db = connectDB();
+    $sql = $db->prepare("SELECT * FROM users WHERE pseudo = :pseudo");
+    $sql->bindParam(':pseudo', $pseudo);
+    $sql->execute();
+    $nbrPseudo = $sql->rowCount();
+    return $nbrPseudo;
+}
+
     //Connexion
     public static function connexionPseudo($pseudo)
     {

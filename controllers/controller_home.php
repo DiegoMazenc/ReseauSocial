@@ -64,21 +64,18 @@ if (isset($_POST['supprimer'])) {
     Comment::deleteComment($comment_id);
 }
 
+$elementsParPage = 10;
+$pageActuelle = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+$offset = max(0, ($pageActuelle - 1) * $elementsParPage);
+
+// Utilisez une nouvelle fonction pour récupérer les images avec la pagination
+$pictures = Picture::getPictureOffset($elementsParPage, $offset);
+
+$totalPictures = Picture::countAllGallery(); // Obtenez le nombre total d'images
+
+$totalPages = ceil($totalPictures / $elementsParPage);
 
 
-
-
-
-// Delete Like
-// if (isset($_POST['unlike'])) {
-//     $id_user = $_POST['id_user'];
-//     $id_picture = $_POST['id_picture'];
-//     Likes::deleteLike($id_picture, $id_user);
-//     // header("Location: index.php?page=home");
-//     // exit;
-// }
-
-$pictures = Picture::getAllGallery();
 
 include "./views/layout.phtml";
 // --- la vue

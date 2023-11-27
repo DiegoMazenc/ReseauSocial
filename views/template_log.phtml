@@ -1,4 +1,4 @@
-<h1>CONTACT</h1>
+
 <div class="formlog">
     <div class="connexion">
         <h1>Connexion</h1>
@@ -13,11 +13,17 @@
                 <input type="password" class="form-control" id="password" name="password" required>
             </div>
             <input type="submit" name="submit" class="form-control btn-connexion" value="Se connecter">
+
         </form>
         
+       
+        <p style="color:red;"><?= $alertConnect;?></p>
 
-        <?= $alertConnect;
-        var_dump($_POST); ?>
+        <?php if(!empty($success)){?>
+        <p style="color: green;"><?= $success;?></p>
+        <?php } else { ?>
+        <p style="color: gray;">Vous devez avoir un compte pour profiter de notre site</p>
+        <?php }?>
     </div>
     <hr>
     <div class="inscription">
@@ -34,7 +40,7 @@
                 <input type="text" class="form-control"  name="name" required>
             </div>
             <div class="mb-3">
-                <label for="pseudo" class="form-label">Pseudo:</label>
+                <label for="pseudo" class="form-label">Pseudo: <span style="color: red;"><?= $errorPseudo ?></span></label>
                 <input type="text" class="form-control"  name="pseudo" required>
             </div>
             <div class="mb-3">
@@ -46,13 +52,19 @@
                 </select>
             </div>
             <div class="mb-3">
-                <label for="mail" class="form-label">E-mail:</label>
+                <label for="mail" class="form-label">E-mail: <span style="color: red;"><?= $errorMail ?></span></label>
                 <input type="email" class="form-control" id="mail" name="mail" required>
             </div>
             <div class="mb-3">
-                <label for="password" class="form-label">Mot de passe:</label>
+            
+                <label for="password" class="form-label">Mot de passe: <span style="color: red;"><?= $errorPass ?></span></label>
                 <input type="password" class="form-control"  name="password" required>
             </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Confirmer le mot de passe: <span style="color: red;"><?= $errorPass ?></span></label>
+                <input type="password" class="form-control"  name="confirmPassword" required>
+            </div>
+            
 
             <input type="submit" name="inscription" class="form-control btn-inscription" value="S'inscrire">
         </form>

@@ -1,17 +1,35 @@
+<?php if (!isset($_SESSION['id'])){ 
+  header("Location: index.php?page=log")
+  ?>
 
+  <?php } else {?>
 <?php foreach ($friends as $friend) : ?>
     <div class="userfollow" id="friend_<?= $friend['id_follow']; ?>">
         <div class="userpseudo">
-            <img src="<?= $friend['photo_src'] ?>" alt="">
-            <p><?= $friend['user_pseudo'] ?></p>
+
+
+        
+              
+              
+            
+              <a href="?page=userpage&id=<?= $friend['id_follow'] ?>" class="pseudoLink">
+            <div class="flexUser">
+            <div class="blocPhotoUserFollow">
+                <img src="<?= $friend['photo_src']; ?>" alt="">
+              </div>
+              <?= $friend['user_pseudo']; ?>
+            </div>
+          </a>
+
+            
         </div>
         <div class="followOption">
             <button class="unfollowed  form-control" data-followid="<?= $friend['id_follow']; ?>">Unfollow</button>
-            <button class="  form-control">Discuter</button>
+            <!-- <button class="  form-control">Discuter</button> -->
         </div>
     </div>
 <?php endforeach; ?>
-
+<?php } ?>
 <script>
 $(document).ready(function() {
     $('.unfollowed').click(function(event) {

@@ -24,6 +24,12 @@
     text-decoration: none;
 }
 
+.btnDashBoardAdmin
+{
+    background-color: brown;
+    color: rgb(255, 255, 255);
+}
+
 .btnDashBoard:hover{
     color: black;
     border: 1px rgb(131, 203, 224) solid;
@@ -52,6 +58,22 @@
     justify-content: center;
     overflow: hidden;
 }
+
+.blocPhotoUserArticle{
+   
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 15px;
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.blocPhotoUserArticle img{
+    height: 100%;
+}
+
 
 .blocPhotoUser img{
     height: 100%;

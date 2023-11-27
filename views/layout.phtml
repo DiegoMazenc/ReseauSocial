@@ -22,36 +22,7 @@
 </head>
 
 <body class="d-flex flex-column h-100">
-    <nav class="navbar navbar-expand-lg bg-body-secondary fixed-top" >
-        <div class="container-fluid">
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent" style="justify-content:space-between;">
-
-                <form class="d-flex" role="search">
-                    <input name="page" value="search" type="hidden"> 
-                    <input name="keywords" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-
-                <?php if (isset($_SESSION['pseudo'])) { ?>
-                    <div class="navUser">
-                        <a href="#"> <img src="https://static.vecteezy.com/ti/vecteur-libre/p3/6086198-icone-de-notification-pour-le-web-vectoriel.jpg" alt="" class="imgUser"></a>
-
-                        <a href="index.php?page=articlelist"> <img src="<?= $_SESSION['photo']; ?>" alt="" class="imgUser"></a>
-
-                    </div>
-                <?php } else { ?>
-                    <a href="index.php?page=log" class="m-2 link-connect">Connexion / Inscription</a>
-
-                <?php } ?>
-
-
-            </div>
-        </div>
-    </nav>
     <main>
         <div class="homeContent">
             <div class="options">
@@ -60,28 +31,43 @@
                         <ul><?php if (isset($_SESSION['pseudo'])) { ?>
                                 <a href="?page=userpage&id=<?= $_SESSION['id']; ?>">
                                     <li>
-                                        <img src="<?= $_SESSION['photo']; ?>" alt="" class="iconNav">
+                                    <div class="flexUser">
+                                    <div class="blocPhotoUserArticle">
+                                                <img src="<?= $_SESSION['photo']; ?>" alt="">
+                                                </div>
                                         <?= $_SESSION['pseudo']; ?>
+                                    </div>
+
+                                        
                                     </li>
                                 </a>
-                            <?php } ?>
+                           
+               
                             <a href="index.php?page=home">
                                 <li><img src="./asset/img/iconHome.png" alt="" class="iconNav">Home</li>
                             </a>
-                            <?php if (isset($_SESSION['pseudo'])) { ?>
+                            
                                 <a href="index.php?page=follow">
                                     <li><img src="./asset/img/iconFollow.png" alt="" class="iconNav">Pages Follow</li>
                                 </a>
-                                <a href="index.php?page=articlelist">
+                                <a href="index.php?page=articlelist#settingUser">
                                     <li><img src="./asset/img/iconSetting.png" alt="" class="iconNav">Paramètres</li>
                                 </a>
-                            <?php } ?>
+                                <!-- <form class="d-flex" role="search">
+                    <input name="page" value="search" type="hidden">
+                    <input name="keywords" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form> -->
+                <?php } else { ?>
+                    <a href="index.php?page=log" class="m-2 link-connect">Connexion / Inscription</a>
+
+                <?php } ?>
 
                         </ul>
                     </div>
                     <hr>
                     <div class="chat">
-                        <p>discutions</p>
+                        <!-- <p>discutions</p> -->
                     </div>
                 </div>
             </div>
@@ -91,13 +77,13 @@
         </div>
     </main>
     <footer class="bg-body-secondary footer mt-auto p-3">
-        <form class="d-flex" role="search">
+        <!-- <form class="d-flex" role="search">
             <input name="page" value="search" type="hidden">
             <input name="keywords" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
+        </form> -->
         <section class="container-fluid text-center">
-            &copy; DWWM CCI LYON
+            &copy; Diégo Mazenc | Social Network
         </section>
     </footer>
 

@@ -5,7 +5,7 @@ require_once("./models/Users.php");
 $id = $_SESSION['id'];
 $pictures = Picture::getListPublic($id);
 
-$user = Users::getUser($id);
+$user = Users::userInfos($id);
 
 if (isset($_POST['updateInfos'])) {
     $new_firstname = strip_tags($_POST['firstname']);
@@ -19,6 +19,8 @@ if (isset($_POST['updateInfos'])) {
     } catch (Exception $e) {
         $sqlError = $e->getMessage();
     }
+
+    
 }
 
 
@@ -107,7 +109,7 @@ if (isset($_POST['password'])) {
                 $errorPassThree = 'Le nouveau mot de passe doit être différent du mot de passe actuel';
             }
         } else {
-            $errorPassTwo = 'Le nouveau mot de passe de correspond pas';
+            $errorPassTwo = 'Les mots de passe ne correspondent pas';
         }
     } else {
         $errorPassOne = 'Mot de passe incorrect';

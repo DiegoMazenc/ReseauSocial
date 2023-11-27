@@ -26,6 +26,35 @@ class Picture
 
     }
 
+    public static function getPictureOffset($limit, $offset)
+    {
+        $db = new Database();
+        $query = "SELECT picture.*,
+            users.pseudo AS user_pseudo, 
+            photo.src AS photo_src,
+            users.id AS user_id,
+            users.src_photo AS user_photo,
+            (SELECT COUNT(*) FROM likes WHERE likes.id_picture = picture.id) AS nbrLikes,
+            (SELECT COUNT(*) FROM comment WHERE comment.id_picture = picture.id) AS nbrCom
+            FROM picture 
+            INNER JOIN users ON users.id = picture.id_user 
+            INNER JOIN photo ON photo.id = users.id_photo
+            WHERE picture.actif = 'oui'
+            ORDER BY picture.id DESC
+            LIMIT $limit OFFSET $offset";
+
+        $pictures = $db->selectAll($query);
+        return $pictures;
+    }
+
+    public static function countAllGallery()
+    {
+        $db = new Database();
+        $count = $db->selectOne("SELECT COUNT(*) AS total FROM picture WHERE actif = 'oui'");
+        return $count['total'];
+    }
+
+
 
     //====ARTICLE===\\
     public static function getAllArticle()
@@ -94,7 +123,7 @@ class Picture
     public static function getListPublic($id)
     {
         $db = new Database();
-        $pictures = $db->selectAll("SELECT *,picture.id AS picture_id FROM picture WHERE id_user=? AND actif= 'oui'",[$id]);
+        $pictures = $db->selectAll("SELECT *,picture.id AS picture_id FROM picture WHERE id_user=? AND actif= 'oui' ORDER BY picture_id DESC",[$id]);
         return $pictures;
     }
 

@@ -1,5 +1,15 @@
+<?php if (!isset($_SESSION['id'])){ 
+  header("Location: index.php?page=log")
+  ?>
+
+  <?php } else {?>
+
 <?php if ($_SESSION['admin']) { ?>
+  <div class="navSession">
   <a href="index.php?page=articlelist" class="btnReturn"><span><</span> Tableau de bord</a>
+  <p  class="isAdminPage">Admin</p>
+
+  </div>
   <div class="menuParam">
     <a href="#" id="btnArticle" class="btnSelect">Articles</a>
     <a href="#" id="btnUser">Users</a>
@@ -35,7 +45,7 @@
               <td><?= $picture['user_pseudo'] ?></td>
             <?php } ?>
             <td>
-              <a href="index.php?page=articleupdate&id=<?= $picture['picture_id']; ?>" class="btn btn-warning m-1">Update</a>
+              <a href="index.php?page=adminupdate&id=<?= $picture['picture_id']; ?>" class="btn btn-warning m-1">Update</a>
               <a href="#" class="btn btn-danger m-1" onclick="deleted(<?= $picture['picture_id'] ?>)">delete</a>
             </td>
           </tr>
@@ -145,7 +155,7 @@ btnUser.addEventListener('click', () => {
     function deleted(id) {
       if (confirm("Êtes-vous sûr de vouloir supprimer cet article ?")) {
 
-        window.location.href = `index.php?page=articledelete&id=${id}`;
+        window.location.href = `index.php?page=admindelete&id=${id}`;
       }
     };
   </script>
@@ -153,3 +163,5 @@ btnUser.addEventListener('click', () => {
 <?php } else { ?>
   <p>Vous n'avez pas les autorisations nécéssaires pour accéder à cette page</p>
 <?php   }; ?>
+
+<?php } ?>
