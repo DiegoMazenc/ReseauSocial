@@ -28,3 +28,21 @@
     color: white;
     font-weight: 700;
 }
+
+.logo{
+    width: 80%;
+    margin: 15px 10% 10px;
+}
+
+@media screen and (max-width : 880px) {
+
+    .formlog{
+        flex-direction: column;
+    }
+
+    .connexion, .inscription{
+        width: 100%;
+    }
+    
+   
+}

@@ -13,10 +13,6 @@
     transform: translateX(-100px);
     opacity: 0;
 }
-.transitionUnfollow{
-    transform: translateX(-100px);
-    opacity: 0;
-}
 
 .transitionRight{
     position:initial;
@@ -133,4 +129,10 @@ border-radius: 15px 15px 0 0;
     padding: 5px 10px;
     border-radius: 10px;
     margin: 0;
+}
+
+@media screen and (max-width : 880px){
+.colMob{
+    display: none;
+}
 }

@@ -87,3 +87,33 @@
 .photoUpdate{
     width: 100%;
 }
+
+@media screen and (max-width : 880px) {
+
+    
+    .navUser{
+        margin: 0;
+    }
+
+    .blocPhotoUser{
+        width: 100px;
+        height: 100px;
+    }
+
+    .optionUser {
+        transform: translateY(-44px);
+    }
+    
+    .photoUser p {
+        font-size: 20px;
+        margin: 0 0 5px 10px;
+    }
+
+    .photoUser{
+        margin: 0;
+    }
+
+    .banniereUser,.imgbanniere{
+        height: 150px;
+    }
+}

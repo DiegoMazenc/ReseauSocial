@@ -35,3 +35,8 @@
 .followOption{
     display: flex;
 }
+
+.transitionUnfollow{
+    transform: translateX(-100px);
+    opacity: 0;
+}

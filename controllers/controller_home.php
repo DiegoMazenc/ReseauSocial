@@ -2,22 +2,13 @@
 require_once("./models/Picture.php");
 require_once("./models/Likes.php");
 require_once("./models/Comment.php");
-// $pictures = Picture::getAllCaroussel();
 
-// Insert Like
-// if (isset($_POST['like'])) {
-//     $id_user = $_POST['id_user'];
-//     $id_picture = $_POST['id_picture'];
-//     Likes::insertLike($id_picture, $id_user);
-//     // header("Location: index.php?page=home");
-//     // exit;
+// if (isset($_POST['valider'])) {
+//     $id = $_POST['id_post'];
+//     $id_user = $_SESSION['id'];
+//     $com = $_POST['com'];
+//     Comment::insertComment($id, $id_user, $com);
 // }
-if (isset($_POST['valider'])) {
-    $id = $_POST['id_post'];
-    $id_user = $_SESSION['id'];
-    $com = $_POST['com'];
-    Comment::insertComment($id, $id_user, $com);
-}
 
 
 
@@ -59,10 +50,9 @@ if (isset($_POST['submit'])) {
 
 
 
-if (isset($_POST['supprimer'])) {
-    $comment_id = $_POST['comment_id'];
-    Comment::deleteComment($comment_id);
-}
+
+@$comment_id = $_POST['commentId'];
+Comment::deleteComment($comment_id);
 
 $elementsParPage = 10;
 $pageActuelle = isset($_GET['page']) ? (int)$_GET['page'] : 1;

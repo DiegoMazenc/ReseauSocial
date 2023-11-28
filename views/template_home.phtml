@@ -98,6 +98,7 @@
 
 
         <?php if ((int)$picture['nbrCom'] > 1) { ?>
+          
           <a class="btnCom" data-bs-toggle="collapse" href="#collapseCommentaires<?= $picture['id'] ?>"><?= $picture['nbrCom'] ?> commentaires </a>
         <?php } else { ?>
           <a class="btnCom" data-bs-toggle="collapse" href="#collapseCommentaires<?= $picture['id'] ?>"><?= $picture['nbrCom'] ?> commentaire </a>
@@ -115,7 +116,7 @@
         <img src="<?=$_SESSION['photo']; ?>" alt="">
       </div>
               <textarea name="com" class="commentaire" placeholder="Commentez"></textarea>
-              <input type="hidden" name="id_post" value="<?= $picture['id']; ?>">
+              <input type="hidden" name="id_post" value="<?= $picture['id']; ?>" >
               <input type="submit" name="valider" value="OK" class="btnSend" />
 
 
@@ -129,9 +130,9 @@
 
         <!-- génération commentaires -->
         <?php $comments = comment::getAllComment($picture['id'])[0]; ?>
+        <div class="commentaires" id="commentaires<?= $picture['id'] ?>" >
         <?php foreach ($comments as $comment) : ?>
-          <div class="commentaires" id="commentaires<?= $picture['id'] ?>">
-            <div class="comContent">
+            <div class="comContent" id="commentaire_<?= $comment['comment_id'] ?>">
               <img src="<?= $comment['user_photo']; ?>" alt="" class="userPhotoCom">
               <div class="idcom">
                 <div class="cadreCom">
@@ -142,15 +143,15 @@
                   <p class="dateComment"><?= $comment['date_com']; ?></p>
                   <?php if (isset($_SESSION['id']) && (int)$_SESSION['id'] === (int)$comment['id_user']) { ?>
                     <form method="POST" id="form_delete">
-                      <input type="hidden" name="comment_id" value="<?= $comment['comment_id'];; ?>">
-                      <input type="submit" name="supprimer" value="Supprimer" class="supprCom">
+                      <input type="hidden" name="comment_id" value="<?= $comment['comment_id']; ?>">
+                      <input type="submit" name="supprimer" value="Supprimer" class="supprCom" data-commentid="<?= $comment['comment_id'];?>">
                     </form>
                   <?php }; ?>
                 </div>
               </div>
             </div>
+            <?php endforeach; ?>
           </div>
-        <?php endforeach; ?>
       </div>
 
     </div>
@@ -170,6 +171,29 @@
 
 <script>
   $(document).ready(function() {
+
+    $('.supprCom').click(function(event) {
+            event.preventDefault();
+
+
+            let button = $(this);
+            let commentId = button.data('commentid');
+            let commentDelete = document.querySelector('#commentaire_' + commentId)
+            commentDelete.classList.add('transitionUnfollow');
+            setTimeout(() => {
+                commentDelete.style.display = "none";
+            }, 300);
+
+            $.ajax({
+                type: 'POST',
+                url: '?page=home',
+                data: {
+                  commentId: commentId,
+                },
+            });
+        });
+
+
     $('.likeBtn, .unlikeBtn').click(function(event) {
       event.preventDefault();
 
@@ -211,7 +235,7 @@
       let pictureId = form.data('picture-id');
       let commentText = form.find('textarea[name="com"]').val();
 
-      form.find('textarea[name="com"]').val('Recharger la page pour voir le commentaire (rendu dynamique en cours de programmation)');
+      form.find('textarea[name="com"]').val('');
 
       console.log(pictureId);
       console.log(commentText);
@@ -225,14 +249,53 @@
         },
         dataType: 'json',
         success: function(response) {
+          // console.log(response);
           console.log(response);
-          if (response.success) {
+          let com = response.newcomment[0].com;
+          let pseudo = response.newcomment[0].user_pseudo;
+          let photo = response.newcomment[0].user_photo;
+          let date = response.newcomment[0].date_com;
+          let idUser = response.newcomment[0].id_user;
+          let commentId = response.newcomment[0].comment_id;
+          
 
-          }
+          let newComment = insertCom(pictureId,photo,pseudo,com,date,idUser,commentId)
+          $('#commentaires'+pictureId).prepend(newComment)
+
+          
 
         }
       });
     });
+
+    function insertCom(article,photo,pseudo,com,date,idUser,commentId){
+      let commentElement = document.createElement('div');
+    commentElement.className = 'comContent';
+    commentElement.id = 'commentaire' + article;
+
+    commentElement.innerHTML = `
+        
+            <img src="${photo}" alt="" class="userPhotoCom">
+            <div class="idcom">
+                <div class="cadreCom">
+                    <p class="userComment">${pseudo}</p>
+                    <p class="textComment">${com}</p>
+                </div>
+                <div class="optionCom">
+                    <p class="dateComment">${date}</p>
+                    <?php if (isset($_SESSION['id']) && (int)$_SESSION['id'] === (int)$comment['id_user']) { ?>
+                    <form method="POST" id="form_delete">
+                      <input type="hidden" name="comment_id" value="${commentId}">
+                      <input type="submit" name="supprimer" value="Supprimer" class="supprCom" data-commentid="${commentId}">
+                    </form>
+                  <?php }; ?>
+                </div>
+            </div>
+        
+    `;
+
+    return commentElement;
+    }
 
 
   });

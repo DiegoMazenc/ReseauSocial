@@ -48,6 +48,8 @@
     grid-template-columns: 250px 3fr;
 }
 
+
+
 .options{
     z-index: 6;
     position: relative;
@@ -58,6 +60,11 @@
 
     
 }
+.optionMobile{
+    display: none;
+}
+
+
 
 .underOption {
     position: fixed;
@@ -181,4 +188,49 @@ background-color: rgb(136, 169, 172);
 
 .pagination a:hover {
     background-color: #eee;
+}
+
+.optionMobileTop{
+display: none;
+}
+
+@media screen and (max-width : 880px) {
+
+    .homeContent{
+        display: flex;
+        flex-direction: column;
+    }
+    .options{
+        display: none;
+    }
+
+    .optionMobile{
+        z-index: 6;
+        padding: 10px;
+        display: flex;
+        justify-content: space-around;
+        background-color: rgb(52, 111, 121);
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+    }
+    .iconNav, 
+    .blocPhotoUserArticle{
+        margin: 0;
+    }
+
+    .link-connect{
+        color: white;
+    }
+
+    .optionMobileTop{
+        display: block;
+        background-color: rgb(52, 111, 121);
+    
+    }
+    
+    .optionMobileTop img{
+        width: 25%;
+        margin: 10px 15px;
+    }
 }

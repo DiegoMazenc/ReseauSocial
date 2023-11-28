@@ -11,6 +11,8 @@
     
 }
 
+
+
 .titrePhoto {
     text-align: center;
     margin-top: 15px;
@@ -88,3 +90,19 @@ hr{
     font-weight: 500;
 
 } 
+
+@media screen and (max-width : 800px){
+    .photo{
+    margin: 10px 0;
+    width: 100%;
+    }
+
+    .addArticle{
+        margin: 10px 0 20px;
+    width: 100%;
+    }
+
+    .formCom{
+        padding: 0;
+    }
+}
