@@ -233,4 +233,9 @@ display: none;
         width: 25%;
         margin: 10px 15px;
     }
+
+    .footer section{
+        
+        margin-bottom: 55px;
+    }
 }
