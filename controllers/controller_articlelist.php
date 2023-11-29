@@ -46,6 +46,8 @@ if (isset($_POST['addphoto'])) {
                 $db = connectDB();
                 $sql = $db->prepare('UPDATE users SET src_photo=? WHERE id = ?');
                 $sql->execute([$src, $userId]);
+
+                $_SESSION['photo'] = $src;
             } else {
                 $error = "Nous acceptons uniquement les formats .jpeg, .jpg .png";
             }

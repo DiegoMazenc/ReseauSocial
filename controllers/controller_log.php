@@ -62,7 +62,7 @@ if (isset($_POST['submit'])) {
 
         $photo = Users::userInfos($id);
 
-        $_SESSION['photo'] = $photo['src_photo'];
+        $_SESSION['photo'] = $user['src_photo'];
 
         header("Location: index.php?page=home");
         exit;

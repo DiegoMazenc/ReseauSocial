@@ -36,6 +36,10 @@
     display: flex;
 }
 
+.followOption a{
+    text-decoration: none;
+}
+
 .transitionUnfollow{
     transform: translateX(-100px);
     opacity: 0;

@@ -23,6 +23,11 @@ $sql->bindParam(':id_user', $id_user, PDO::PARAM_INT);
 $sql->execute();
 $friends = $sql->fetchAll(PDO::FETCH_ASSOC);
 
-
+if(isset($_POST['search'])){
+    $searchUser = strip_tags($_POST['searchUser']);
+$sql = $db->prepare("SELECT * FROM users WHERE pseudo=?");
+$sql->execute([$searchUser]);
+$users = $sql->fetchAll(PDO::FETCH_ASSOC);
+}
 
 include "./views/layout.phtml";

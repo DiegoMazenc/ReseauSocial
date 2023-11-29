@@ -3,6 +3,32 @@
 ?>
 
 <?php } else { ?>
+    <form method="POST">
+        <input type="text" name="searchUser" class="form-control" placeholder="Chercher un utilisateur">
+        <input type="submit" name="search" class="form-control">
+    </form>
+    <div >
+    <?php 
+    $users = isset($users) ? $users : [];
+    foreach ($users as $user) : ?>
+        <div class="userfollow" id="friend_<?= $user['id']; ?>">
+            <div class="userpseudo">
+                <a href="?page=userpage&id=<?= $user['id'] ?>" class="pseudoLink">
+                    <div class="flexUser">
+                        <div class="blocPhotoUserFollow">
+                            <img src="<?= $user['src_photo']; ?>" alt="">
+                        </div>
+                        <?= $user['pseudo']; ?>
+                    </div>
+                </a>
+            </div>
+            <div class="followOption">
+            <a href="?page=userpage&id=<?= $user['id'] ?>" class=" form-control">Page</a>
+            </div>
+        </div>
+           <hr>
+    <?php endforeach; ?>
+    </div>
     <?php foreach ($friends as $friend) : ?>
         <div class="userfollow" id="friend_<?= $friend['id_follow']; ?>">
             <div class="userpseudo">

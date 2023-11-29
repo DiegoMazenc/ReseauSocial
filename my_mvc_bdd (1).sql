@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mer. 15 nov. 2023 à 14:42
--- Version du serveur :  10.4.10-MariaDB
--- Version de PHP :  7.3.12
+-- Généré le : mer. 29 nov. 2023 à 09:50
+-- Version du serveur : 10.4.10-MariaDB
+-- Version de PHP : 8.2.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données :  `my_mvc_bdd`
+-- Base de données : `my_mvc_bdd`
 --
 
 -- --------------------------------------------------------
@@ -38,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `comment` (
   PRIMARY KEY (`id`),
   KEY `ForeignKey_CommentIdPicture_PictureId` (`id_picture`),
   KEY `FK_commentIdUser_UsersId` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=213 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=286 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `comment`
@@ -54,31 +53,18 @@ INSERT INTO `comment` (`id`, `id_picture`, `id_user`, `com`, `date_com`) VALUES
 (48, 9, 4, 'coucou', '2023-11-02 14:48:32'),
 (49, 1, 4, 'c\'est beau', '2023-11-02 14:55:57'),
 (50, 16, 2, 'sympa ', '2023-11-02 14:56:35'),
-(71, 4, 2, 'Fantastique', '2023-11-03 13:55:15'),
 (72, 1, 4, 'Vous savez je ne pense pas qu\'il y est de bonnes ou de mauvaises situations', '2023-11-03 14:07:46'),
-(73, 4, 2, 'niiiiiice', '2023-11-03 14:28:27'),
 (76, 5, 4, 'c\'est trop bien', '2023-11-03 18:05:34'),
 (77, 2, 2, 'c\'est beauuuu', '2023-11-03 18:09:45'),
 (80, 5, 2, 'Belle Bête', '2023-11-07 15:07:08'),
 (83, 5, 2, 'Hello', '2023-11-07 15:10:40'),
 (85, 23, 2, 'prems\r\n', '2023-11-09 11:34:39'),
 (86, 7, 2, 'hello', '2023-11-09 11:39:46'),
-(88, 8, 2, 'hey', '2023-11-09 12:29:21'),
 (90, 9, 2, 'bye bye', '2023-11-09 15:23:32'),
 (92, 35, 3, 'Game !', '2023-11-10 10:37:42'),
-(93, 32, 3, 'gfdsdfgfd', '2023-11-10 11:36:14'),
 (94, 9, 3, 'hello', '2023-11-10 11:43:00'),
-(95, 32, 3, 'coucouc', '2023-11-10 11:43:17'),
 (99, 37, 3, 'hello', '2023-11-10 12:15:35'),
 (100, 37, 3, 'coucou', '2023-11-10 12:19:10'),
-(124, 32, 3, 'heyhey', '2023-11-10 13:11:30'),
-(125, 32, 3, 'heyheyhey', '2023-11-10 13:11:57'),
-(127, 32, 3, 'fdsf', '2023-11-10 13:19:13'),
-(128, 32, 3, 'gdff', '2023-11-10 13:24:55'),
-(129, 32, 3, 'hooooi', '2023-11-10 13:25:15'),
-(130, 32, 3, 'gfdg', '2023-11-10 13:25:35'),
-(131, 32, 3, 'fdd', '2023-11-10 13:25:37'),
-(137, 32, 3, 'dss', '2023-11-10 13:29:16'),
 (141, 23, 3, 'cailloux', '2023-11-10 13:30:56'),
 (142, 23, 3, '', '2023-11-10 13:31:00'),
 (143, 23, 3, '', '2023-11-10 13:31:00'),
@@ -89,18 +75,15 @@ INSERT INTO `comment` (`id`, `id_picture`, `id_user`, `com`, `date_com`) VALUES
 (150, 38, 27, 'nice', '2023-11-11 17:55:18'),
 (151, 34, 27, 'cute', '2023-11-11 21:56:41'),
 (152, 41, 27, 'les chevaliers du zodiahahkeuh', '2023-11-11 21:57:15'),
-(196, 40, 2, 'hello', '2023-11-13 08:14:48'),
 (198, 35, 2, '', '2023-11-13 09:03:42'),
 (200, 41, 2, 'hello', '2023-11-15 09:13:35'),
 (201, 44, 2, 'gfgfgfg', '2023-11-15 11:17:45'),
 (202, 44, 2, 'gfgfgfg', '2023-11-15 11:17:47'),
 (203, 44, 2, 'fd', '2023-11-15 11:17:53'),
 (204, 44, 2, 'vcvc', '2023-11-15 11:18:00'),
-(206, 41, 2, 'dsdsds', '2023-11-15 11:44:03'),
-(209, 34, 2, 'coucou', '2023-11-15 11:45:34'),
-(210, 34, 2, 'hello', '2023-11-15 11:46:08'),
-(211, 34, 2, 'hey', '2023-11-15 11:46:44'),
-(212, 41, 2, 'pouet', '2023-11-15 11:47:56');
+(213, 41, 2, 'coucou', '2023-11-17 15:08:36'),
+(214, 7, 31, 'long voyage', '2023-11-24 10:52:29'),
+(285, 40, 2, 'coucou', '2023-11-28 11:42:41');
 
 -- --------------------------------------------------------
 
@@ -115,7 +98,7 @@ CREATE TABLE IF NOT EXISTS `friends` (
   `id_follow` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `FK_FriendsIdFollow_UsersIdUsers` (`id_follow`)
-) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=115 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `friends`
@@ -125,8 +108,14 @@ INSERT INTO `friends` (`id`, `id_user`, `id_follow`) VALUES
 (1, 2, 3),
 (43, 27, 7),
 (44, 27, 6),
-(45, 27, 5),
-(88, 2, 6);
+(106, 27, 2),
+(107, 2, 6),
+(108, 2, 5),
+(109, 2, 26),
+(110, 2, 4),
+(112, 2, 28),
+(113, 2, 34),
+(114, 2, 27);
 
 -- --------------------------------------------------------
 
@@ -142,7 +131,7 @@ CREATE TABLE IF NOT EXISTS `likes` (
   PRIMARY KEY (`id`),
   KEY `FK_LikesIdPicture_PictureId` (`id_picture`),
   KEY `id_user` (`id_user`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=242 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=268 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `likes`
@@ -164,12 +153,9 @@ INSERT INTO `likes` (`id`, `id_picture`, `id_user`) VALUES
 (169, 3, 2),
 (170, 5, 2),
 (174, 8, 2),
-(178, 7, 2),
-(180, 6, 2),
 (183, 7, 3),
 (186, 8, 3),
 (188, 3, 3),
-(196, 6, 3),
 (202, 16, 3),
 (203, 9, 3),
 (207, 37, 3),
@@ -182,14 +168,29 @@ INSERT INTO `likes` (`id`, `id_picture`, `id_user`) VALUES
 (223, 37, 27),
 (224, 23, 27),
 (225, 16, 27),
-(226, 9, 27),
 (227, 8, 27),
 (229, 39, 27),
 (230, 35, 27),
-(231, 23, 2),
 (238, 42, 2),
-(240, 34, 2),
-(241, 44, 2);
+(241, 44, 2),
+(244, 34, 2),
+(246, 40, 2),
+(247, 39, 2),
+(248, 35, 2),
+(250, 32, 31),
+(253, 39, 31),
+(255, 34, 31),
+(256, 16, 31),
+(257, 9, 31),
+(258, 41, 2),
+(260, 23, 2),
+(261, 1, 2),
+(262, 5, 3),
+(263, 6, 3),
+(264, 6, 2),
+(265, 4, 2),
+(266, 7, 27),
+(267, 53, 2);
 
 -- --------------------------------------------------------
 
@@ -236,7 +237,7 @@ CREATE TABLE IF NOT EXISTS `picture` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `FK_pictureIdUser_userId` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `picture`
@@ -262,32 +263,19 @@ INSERT INTO `picture` (`id`, `actif`, `id_user`, `src`, `title`, `description`, 
 (32, 'oui', 26, './uploads/Mi-laine1699538714.jpeg', 'Albert', 'Albert le dev', '2023-11-09 14:05:14', '2023-11-09 14:05:14'),
 (33, 'non', 3, './uploads/Wiwi1699539525.jpeg', 'gfdsqsdf', 'gfdsqdfg', '2023-11-09 14:19:32', '2023-11-09 14:18:45'),
 (34, 'oui', 2, 'https://media.tenor.com/MYL0JUb9bYMAAAAC/adventure-time-gunter.gif', ' Les Secrets des Terres Gelées d\'Ooo', 'Salut les p\'tits pingouins et amateurs d\'aventures glacées ! C\'est moi, Gunther, votre guide imperturbable à travers les terres gelées d\'Ooo. Aujourd\'hui, je vous emmène dans un voyage palpitant au cœur des mystères des régions glacées. Préparez-vous à glisser sur la glace et à plonger dans le frisson de l\'inconnu !\r\n', '2023-11-15 11:48:46', '2023-11-15 11:48:46'),
-(35, 'oui', 27, './uploads/biboule deneigeHaiku php engagé1699671485.jpeg', 'Haiku php engagé', 'Code en lambeaux flotte,\r\nPHP pleure dans mes scripts,\r\nDéveloppeur honteux.', '2023-11-11 02:58:05', '2023-11-11 02:58:05'),
+(35, 'non', 27, './uploads/biboule deneigeHaiku php engagé1699671485.jpeg', 'Haiku php engagé', 'Code en lambeaux flotte,\r\nPHP pleure dans mes scripts,\r\nDéveloppeur honteux.', '2023-11-24 15:12:51', '2023-11-11 02:58:05'),
 (36, 'non', 2, '', '', '', '2023-11-11 20:36:27', '2023-11-11 20:36:09'),
 (37, 'non', 27, 'https://media.tenor.com/MYL0JUb9bYMAAAAC/adventure-time-gunter.gif', 'SDFGH', 'DFGHN', '2023-11-11 21:52:56', '2023-11-11 12:26:23'),
 (38, 'non', 27, './uploads/biboule deneigeSDFDSQSDF1699705679.jpeg', 'SDFDSQSDF', 'FDSQSDFGFDS', '2023-11-11 21:53:01', '2023-11-11 12:27:59'),
 (39, 'oui', 5, './uploads/Mc ManuTraverser la rue1699738728.jpeg', 'Traverser la rue', 'Comme quoi on peut traverser la rue et trouver plus que du travail, on peut trouver aussi la gloire lol', '2023-11-11 21:38:48', '2023-11-11 21:38:48'),
-(40, 'oui', 6, './uploads/MartinoBonsoir à tous1699739053.jpeg', 'Bonsoir à tous', 'Enfin un nouveau site trop cool pour faire valoir ma collection de photos de cheval moche', '2023-11-15 09:06:08', '2023-11-15 09:06:08'),
-(41, 'oui', 7, './uploads/BébertBientot dans ton PMU1699739301.jpeg', 'Bientot dans ton PMU', 't\'aime les moshpit ? Alors vient au PMU du village de jeuvieille-la-souche pour pogoter avec les pilier de bar', '2023-11-11 21:48:21', '2023-11-11 21:48:21'),
+(40, 'oui', 6, './uploads/MartinoBonsoir à tous1699739053.jpeg', 'Bonsoir à tous je suis un cheval', 'Enfin un nouveau site trop cool pour faire valoir ma collection de photos de cheval moche', '2023-11-24 15:14:22', '2023-11-24 15:14:22'),
+(41, 'non', 7, './uploads/BébertBientot dans ton PMU1699739301.jpeg', 'Bientot dans ton PMU', 't\'aime les moshpit ? Alors vient au PMU du village de jeuvieille-la-souche pour pogoter avec les pilier de bar', '2023-11-24 15:11:48', '2023-11-11 21:48:21'),
 (42, 'non', 2, './uploads/DidiUltimate Battle bros1700035739.png', 'Ultimate Battle bros', 'Bientot dans vos boutiques', '2023-11-15 09:08:08', '2023-11-15 08:08:59'),
 (43, 'non', 2, './uploads/Didifdsdf1700036970.png', 'fdsdf', 'fdsdf', '2023-11-15 08:29:44', '2023-11-15 08:29:30'),
-(44, 'non', 2, './uploads/Didiphoto test1700046703.png', 'photo test', 'coucou', '2023-11-15 11:18:55', '2023-11-15 11:11:43');
-
--- --------------------------------------------------------
-
---
--- Structure de la table `user`
---
-
-DROP TABLE IF EXISTS `user`;
-CREATE TABLE IF NOT EXISTS `user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
-  `roles` int(11) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+(44, 'non', 2, './uploads/Didiphoto test1700046703.png', 'photo test', 'coucou', '2023-11-15 11:18:55', '2023-11-15 11:11:43'),
+(51, 'non', 2, './uploads/DidiPlanète Mars1700839117.jpeg', 'Planète Mars', 'Une jolie photo de la planète Mars', '2023-11-24 15:19:57', '2023-11-24 15:18:37'),
+(52, 'non', 2, './uploads/DidiPlanète Mars1700839421.jpeg', 'Planète Mars', 'Encore une jolie photo de la planète Mars et elle est rouge', '2023-11-24 15:25:37', '2023-11-24 15:25:28'),
+(53, 'oui', 2, './uploads/DidiMars1701096502.jpeg', 'Mars', 'Mars est la quatrième planète du Système solaire par ordre croissant de la distance au Soleil et la deuxième par ordre croissant de la taille et de la masse. Son éloignement au Soleil est compris entre 1,381 et 1,666 UA, avec une période orbitale de 669,58 jours martiens.', '2023-11-27 14:48:22', '2023-11-27 14:48:22');
 
 -- --------------------------------------------------------
 
@@ -306,19 +294,19 @@ CREATE TABLE IF NOT EXISTS `users` (
   `gender` varchar(50) NOT NULL,
   `mail` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
-  `src_photo` text DEFAULT NULL,
+  `src_photo` text DEFAULT './uploads/profiluserdefault.jpg',
   `src_banner` text DEFAULT NULL,
   `date_create` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   KEY `FK_UsersIdPhoto_PhotoId` (`id_photo`)
-) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=latin1;
 
 --
 -- Déchargement des données de la table `users`
 --
 
 INSERT INTO `users` (`id`, `admin`, `id_photo`, `firstname`, `name`, `pseudo`, `gender`, `mail`, `password`, `src_photo`, `src_banner`, `date_create`) VALUES
-(2, 1, 3, 'Diégo', 'Mazenc', 'Didi', 'homme', 'diego.mazenc@gmail.com', '$2y$10$v11UEBcQwaNHHGOoQ6LOPuuE8Gb8Adyg5Ew3dVy1o8Wm2YIRdvxP2', './uploads/Didi2profilpic1700039115.png', './uploads/Didi2bannerpic1700049034.jpeg', '2023-11-02 13:17:07'),
+(2, 1, 3, 'Diégo', 'Mazenc', 'Didi', 'homme', 'diego.mazenc@gmail.com', '$2y$10$v11UEBcQwaNHHGOoQ6LOPuuE8Gb8Adyg5Ew3dVy1o8Wm2YIRdvxP2', './uploads/Didi2profilpic1701251094.jpeg', './uploads/Didi2bannerpic1701084670.jpeg', '2023-11-02 13:17:07'),
 (3, 0, 4, 'Will', 'Smith', 'Wiwi', 'homme', 'willsmith@gmail.com', '$2y$10$LVv/MGziT/bxbMsjfw5i9uyHiPCdvJv8biTbjmfE9O/pIy7/XCvHK', './uploads/Wiwi3profilpic1699738357.jpeg', NULL, '2023-11-02 14:21:30'),
 (4, 0, 5, 'Jean-Luc', 'Mélenchon', 'JL-mel', 'homme', 'jlmech@mail.fr', '$2y$10$EZQ.8J9lcB/AH7rzhR1D7OxEdB5kZz1XGnqirdkzsH6SUA1lq6IqK', './uploads/JL-mel4profilpic1699738459.jpeg', NULL, '2023-11-02 14:23:04'),
 (5, 0, 6, 'Emmanuel', 'Macaron', 'Mc Manu', 'autres', 'macrondu91@gmail.com', '$2y$10$v6rRJW/hVgVshejDitx/WeYgkQtnhLYGmtBP/XCKrIZCFF9PpaXWK', './uploads/Mc Manu5profilpic1699738550.jpeg', NULL, '2023-11-03 09:32:36'),
@@ -326,7 +314,13 @@ INSERT INTO `users` (`id`, `admin`, `id_photo`, `firstname`, `name`, `pseudo`, `
 (7, 0, 3, 'Bernard', 'Minet', 'Bébert', 'homme', 'clubernard@mail.fr', '$2y$10$EHsTxsbt5TGEwDOaY0cRke36hfxFhqI7Xqa.ZChCVInS6NgjwXLki', './uploads/Bébert7profilpic1699739170.jpeg', NULL, '2023-11-03 11:02:30'),
 (26, 1, 3, 'Mylène', 'Farmer', 'Mi-laine', 'autres', 'farmer@mail.fr', '$2y$10$.cgWczKdzXnWlix8z6kIeOwUSYlNS282fQQF7iiw5R1TjNI4HR8s.', './uploads/Mi-laine26profilpic1699739467.jpeg', NULL, '2023-11-08 09:55:20'),
 (27, 1, 7, 'BIbi', 'deneige', 'Bébouh', 'autres', 'contact.sabrinaa@gmail.com', '$2y$10$GBJx.rvdjTVfh/iidvw16uVceTos.0PtIbx3vhqh4.3AXfnUlILD2', './uploads/Bébouh27profilpic1699739531.jpeg', NULL, '2023-11-11 03:51:02'),
-(28, 0, 3, 'Mickeal', 'Jackson', 'Mika', 'homme', 'jackson@mail.com', '$2y$10$g72B6tbdTAj4Uei/RPsg1O/hLT7h46rytbVeuVqx/BpI3Q7JA/10q', NULL, NULL, '2023-11-15 08:23:17');
+(28, 0, 3, 'Mickeal', 'Jackson', 'Mika', 'homme', 'jackson@mail.com', '$2y$10$g72B6tbdTAj4Uei/RPsg1O/hLT7h46rytbVeuVqx/BpI3Q7JA/10q', './uploads/profiluserdefault.jpg', NULL, '2023-11-15 08:23:17'),
+(29, 0, 3, 'Jean-François', 'Millet', 'Millet', 'homme', 'jeanfrancois@millet.fr', '$2y$10$crIpW/iapwM07ocf9/KlDuE7QdIXQ6dQoG5iyAOnVFO7yYQa/6WIW', './uploads/profiluserdefault.jpg', NULL, '2023-11-24 11:33:43'),
+(30, 0, 3, 'Claude', 'Monet', 'Cloclo', 'homme', 'claude@monet.fr', '$2y$10$zBMMZUmm8srqpbl7dx6QX.mBg93xdsJviqGpoDZ0tcJx77KvjFZhm', './uploads/profiluserdefault.jpg', NULL, '2023-11-24 11:38:11'),
+(31, 0, 3, 'Eugène', 'Delacroix', 'Eugène', 'homme', 'eugene@delacroix.fr', '$2y$10$VE8rcFjEAbzGfdErLQM4zOyGBRkdasECCszhtv..ieo/lb5h3m4h2', './uploads/profiluserdefault.jpg', NULL, '2023-11-24 11:40:29'),
+(32, 0, 3, 'Théodore', 'Géricault', 'Méduse', 'homme', 'theodore@gericault.fr', '$2y$10$85ixqrBX9l8sw5i/ZrvYBu2Z07x77d16Fa5z0c1Mzg/66qB/DxoJG', './uploads/profiluserdefault.jpg', NULL, '2023-11-24 15:08:25'),
+(33, 0, 3, 'Léonardo', 'Dicaprio', 'Léo', 'homme', 'leonardo@dicaprio.fr', '$2y$10$sGot5P/pYA10wZN5OTjfeOOMMmkWj4Er4JDlpCQn1C0lmK6XefYQa', './uploads/profiluserdefault.jpg', NULL, '2023-11-24 16:44:08'),
+(34, 0, 3, 'Salvador', 'Dali', 'Salva', 'homme', 'salvador@dali.com', '$2y$10$1cmLeWnJCJqiEdttzjWITO8rMv.GYJHvQYX.lx4R9oYOADbl8Boh2', './uploads/profiluserdefault.jpg', NULL, '2023-11-27 09:54:48');
 
 --
 -- Contraintes pour les tables déchargées
