@@ -6,6 +6,7 @@ require_once("./models/Users.php");
 require_once("./models/Friends.php");
 
 $id = $_GET['id'];
+$idPage = $_GET['id'];
 $id_user = $_SESSION['id'];
 
 //Insérer Commentaire
@@ -26,7 +27,7 @@ if (isset($_POST['submit'])) {
     $explode = explode("/", $checkFile['mime']);
 
     if ($checkFile) {
-        if ($sizeFile < 1000000) {
+        if ($sizeFile < 3000000) {
             if ($explode[1] == 'jpeg' || $explode[1] == 'jpg' || $explode[1] == 'png') {
 
                 $title = $_POST['title'];
@@ -77,7 +78,7 @@ $friends = Friends::getAllFriends($id_user, $id);
 $pictures = Picture::getUserArticle($id);
 
 //Récupérer les informations d'utilisateur
-$photo = Users::userInfos($id);
+$user = Users::userInfos($idPage);
 
 include "./views/layout.phtml";
 

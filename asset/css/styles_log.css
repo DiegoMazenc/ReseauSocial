@@ -34,6 +34,15 @@
     margin: 15px 10% 10px;
 }
 
+.returnHome{
+    text-align: center;
+
+}
+
+.returnHome a{
+    text-decoration: none;
+}
+
 @media screen and (max-width : 880px) {
 
     .formlog{

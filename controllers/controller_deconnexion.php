@@ -1,5 +1,5 @@
 <?php
 
 session_destroy();
-header("Location: index.php?page=home");
+header("Location: index.php?page=log");
 exit;

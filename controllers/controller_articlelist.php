@@ -34,7 +34,7 @@ if (isset($_POST['addphoto'])) {
     $explode = explode("/", $checkFile['mime']);
 
     if ($checkFile) {
-        if ($sizeFile < 1000000) {
+        if ($sizeFile < 30000000) {
             if ($explode[1] == 'jpeg' || $explode[1] == 'jpg' || $explode[1] == 'png') {
 
 
@@ -69,7 +69,7 @@ if (isset($_POST['addbanner'])) {
     $explode = explode("/", $checkFile['mime']);
 
     if ($checkFile) {
-        if ($sizeFile < 10000000) {
+        if ($sizeFile < 30000000) {
             if ($explode[1] == 'jpeg' || $explode[1] == 'jpg' || $explode[1] == 'png') {
 
 

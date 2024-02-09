@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="./asset/img/favicon.png" type="image/x-icon">
     <link rel="shortcut icon" href="./asset/img/favicon.png" type="image/x-icon">
-    
+
     <title>Document</title>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
@@ -27,9 +27,9 @@
 <body class="d-flex flex-column h-100">
 
     <main>
-    <div class="optionMobileTop">
-    <img src="./asset/img/logoFlow.png" alt="" class="logo">
-    </div>
+        <div class="optionMobileTop">
+            <img src="./asset/img/logoFlow.png" alt="" class="logo">
+        </div>
         <div class="homeContent">
             <div class="options">
                 <div class="underOption">
@@ -79,7 +79,7 @@
                     </div>
                 </div>
             </div>
-<div class="optionMobile">
+            <div class="optionMobile">
                 <?php if (isset($_SESSION['pseudo'])) { ?>
                     <a href="index.php?page=articlelist#settingUser">
                         <img src="./asset/img/iconSetting.png" alt="" class="iconNav">
@@ -93,7 +93,11 @@
                     </a>
 
                     <div class="blocPhotoUserArticle navUser">
-                        <a href="?page=userpage&id=<?= $_SESSION['id']; ?>"><img src="<?= $_SESSION['photo']; ?>" alt=""></a>
+                        <?php
+                        require_once("./models/Users.php");
+                        $photo = Users::userInfos($_SESSION['id']);
+                        ?>
+                        <a href="?page=userpage&id=<?= $_SESSION['id']; ?>"><img src="<?= $photo['src_photo']; ?>" alt=""></a>
                     </div>
 
 
@@ -104,9 +108,9 @@
 
             </div>
             <div class="mainAjax">
-                <?php include "./views/template_" . $page . ".phtml"; ?>
+                    <?php include "./views/template_" . $page . ".phtml"; ?>
             </div>
-            
+
 
         </div>
     </main>

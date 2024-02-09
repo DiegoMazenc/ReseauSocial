@@ -7,16 +7,16 @@
 <div class="header">
   <div class="banniereUser">
     <div class="imgbanniere">
-    <img src="<?= $photo['src_banner']; ?>" alt="">
+    <img src="<?= $user['src_banner']; ?>" alt="">
   </div>
 
     <div class="optionUser">
 
       <div class="photoUser">
         <div class="blocPhotoUser">
-        <img src="<?= $photo['src_photo']; ?>" alt="">
+        <img src="<?= $user['src_photo']; ?>" alt="">
       </div>
-        <p><?= $photo['pseudo']; ?></p>
+        <p><?= $user['pseudo']; ?></p>
       </div>
 
       <div class="menuUser">
@@ -64,7 +64,7 @@
         <form style="margin:5%" method="POST" enctype="multipart/form-data">
 
           <div class="mb-3">
-            <label for="src" class="form-label">Charger une image</label>
+            <label for="src" class="form-label">Charger une image (moins de 3Mo)</label>
             <?php if (!empty($error)) {
               echo "<p style=\"color : red;\">" . $error . "</p>";
             } ?>

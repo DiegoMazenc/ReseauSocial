@@ -23,7 +23,7 @@ if (isset($_POST['submit'])) {
     $explode = explode("/", $checkFile['mime']);
 
     if ($checkFile) {
-        if ($sizeFile < 1000000) {
+        if ($sizeFile < 3000000) {
             if ($explode[1] == 'jpeg' || $explode[1] == 'jpg' || $explode[1] == 'png') {
 
                 $title = $_POST['title'];
